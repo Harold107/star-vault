@@ -9,4 +9,6 @@
     <color name="txt_lightPink">#FA8D93</color>
     <color name="txt_darkpink">#FC489C</color>
 
+    <color name="navigationBar_grey">#ADADAD</color>
+
 </resources>
