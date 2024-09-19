@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="#F0F0F0"
+                                                   tools:context=".AddTransactionFragment">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_transaction"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Income/Expense Toggle -->
+    <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:singleSelection="true">
+
+        <Button
+                android:id="@+id/btnIncome"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/income"
+                android:backgroundTint="#80CBC4" />
+
+        <Button
+                android:id="@+id/btnExpense"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/expense"
+                android:backgroundTint="#CE93D8" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <!-- Date Input -->
+    <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/_9_7_2024"
+            android:inputType="date"
+            android:minHeight="48dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintTop_toBottomOf="@id/toggleGroup" />
+
+    <!-- Category Spinner -->
+    <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:minHeight="48dp"
+            app:layout_constraintTop_toBottomOf="@id/editTextDate" />
+
+    <!-- Amount Input -->
+    <EditText
+            android:id="@+id/editTextAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="$10"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintTop_toBottomOf="@id/spinnerCategory" />
+    <!-- Note Input -->
+    <EditText
+            android:id="@+id/editTextNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="Note"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            app:layout_constraintTop_toBottomOf="@id/editTextAmount" />
+
+    <!-- Save Button -->
+    <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Save"
+            android:backgroundTint="#F48FB1"
+            app:layout_constraintBottom_toTopOf="@id/calculatorLayout"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Calculator Layout -->
+
+    <GridLayout
+            android:id="@+id/calculatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:rowCount="5"
+            android:background="#673AB7"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+                android:id="@+id/btn7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="7"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btn8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="8"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" android:layout_row="0"
+                android:layout_column="1"/>
+        <Button
+                android:id="@+id/btn9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="9"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btnMultiply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="×"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btn4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="4"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btn5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="5"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btn6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="6"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btnMinus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="-"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btn1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btn2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="2"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btn3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="3"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btnPlus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="+"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btnDoubleZero"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="00"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btn0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btnDot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="."
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+        <Button
+                android:id="@+id/btnEquals"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:text="="
+                android:textColor="@android:color/white"
+                android:background="?android:attr/selectableItemBackground" />
+
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

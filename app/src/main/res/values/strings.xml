@@ -48,4 +48,18 @@
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_transaction">New Transaction</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="_9_7_2024">9/7/2024</string>
+    <string-array name="categories_array">
+        <item>Food</item>
+        <item>Transportation</item>
+        <item>Entertainment</item>
+        <item>Bills</item>
+        <item>Other</item>
+    </string-array>
+    <string name="fill_all_fields">Please fill in all required fields</string>
+    <string name="invalid_amount">Invalid amount</string>
+    <string name="transaction_saved">Transaction saved successfully</string>
 </resources>
