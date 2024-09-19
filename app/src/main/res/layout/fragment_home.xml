@@ -37,7 +37,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/cardView_mainBackdrop"
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="156dp"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
