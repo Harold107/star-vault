@@ -1,5 +1,6 @@
 package com.example.galacticore;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,10 +41,17 @@ public class AddTransactionFragment extends Fragment {
         setupDateInput();
     }
 
+    @SuppressLint("ResourceType")
     private void setupToggleGroup() {
         binding.toggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             if (isChecked) {
-
+                // Handle Income selection
+               // if (checkedId == R.id.btnIncome)
+                 //   binding.btnDot.setBackgroundResource(getResources().getColor(R.color.gradient_2_purple));
+              //  else if (checkedId == R.id.btnExpense) {
+                    // Handle Expense selection
+                   // binding.btnDot.setBackgroundColor(getResources().getColor(R.color.gradient_2_purple));
+              //  }
             }
         });
     }
@@ -174,4 +182,5 @@ public class AddTransactionFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+    
 }
