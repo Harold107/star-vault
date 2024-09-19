@@ -4,8 +4,8 @@
     <color name="black">#000000</color>
     <color name="pink">#FF4081</color>
     <color name="light_grey">#DDDDDD</color>
-    <color name="gradient_1_purple">#33038C</color>
-    <color name="gradient_2_pink">#A435E9</color>
+    <color name="gradient_1_purple">#663B8B</color>
+    <color name="gradient_2_pink">#221734</color>
 </resources>
 
 
