@@ -62,4 +62,5 @@
     <string name="fill_all_fields">Please fill in all required fields</string>
     <string name="invalid_amount">Invalid amount</string>
     <string name="transaction_saved">Transaction saved successfully</string>
+    <string name="add_transaction_fragment_label">Add Transaction</string>
 </resources>

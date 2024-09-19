@@ -8,8 +8,9 @@
     <fragment
             android:id="@+id/FirstFragment"
             android:name="com.example.galacticore.FirstFragment"
-            android:label="First Fragment"
+            android:label="@string/first_fragment_label"
             tools:layout="@layout/fragment_first">
+
         <action
                 android:id="@+id/action_FirstFragment_to_addTransactionFragment"
                 app:destination="@id/addTransactionFragment" />
@@ -18,11 +19,11 @@
     <fragment
             android:id="@+id/addTransactionFragment"
             android:name="com.example.galacticore.AddTransactionFragment"
-            android:label="Add Transaction"
+            android:label="@string/add_transaction_fragment_label"
             tools:layout="@layout/fragment_add_transaction">
+
         <action
                 android:id="@+id/action_addTransactionFragment_to_FirstFragment"
                 app:destination="@id/FirstFragment" />
     </fragment>
-
 </navigation>
