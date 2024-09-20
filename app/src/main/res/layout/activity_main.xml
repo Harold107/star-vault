@@ -31,6 +31,7 @@
                 android:id="@+id/bottomNavigationView"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                app:backgroundTint="@color/navigationBar_grey"
                 app:itemIconTint="@color/navigationIcon_pink"
                 app:itemIconSize="34dp"
                 app:itemPaddingTop="10dp"
