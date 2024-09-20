@@ -22,7 +22,7 @@
                 android:layout_marginTop="-20dp"/>
         <ImageView
                 android:src="@drawable/rocket_fly_icon"
-                android:layout_width="42dp"
+                android:layout_width="420dp"
                 android:layout_height="100dp"
                 android:id="@+id/rocket_home"
                 app:layout_constraintStart_toStartOf="parent"

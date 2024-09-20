@@ -19,9 +19,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    //private ActivityMainBinding binding;
-
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment = new HomeFragment();
 
@@ -32,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(binding.getRoot());
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit(); //replace framelayout with homeFragment
 
@@ -45,5 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
     }
 }
