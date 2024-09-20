@@ -28,20 +28,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="104dp"
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="36dp"
                 android:rotation="90"/>
 
         <!--main backdrop -->
         <androidx.cardview.widget.CardView
                 android:layout_width="412dp"
-                android:layout_height="600dp"
+                android:layout_height="900dp"
                 app:cardCornerRadius="30dp"
                 app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/cardView_mainBackdrop"
-                android:layout_marginBottom="-10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-        >
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="150dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
