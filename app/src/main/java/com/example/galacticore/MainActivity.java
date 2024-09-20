@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //setContentView(binding.getRoot());
-
+        //testing
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
 
