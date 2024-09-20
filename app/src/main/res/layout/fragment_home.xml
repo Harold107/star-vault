@@ -33,7 +33,6 @@
 
         <!--main backdrop -->
         <androidx.cardview.widget.CardView
-
                 android:layout_width="412dp"
                 android:layout_height="600dp"
                 app:cardCornerRadius="30dp"

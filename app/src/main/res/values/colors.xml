@@ -11,5 +11,6 @@
 
     <color name="trnasacBnt_orange">#F9A690</color>
     <color name="navigationBar_grey">#ADADAD</color>
+    <color name="navigationIcon_pink">#C647BF</color>
 
 </resources>
