@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/dollar"
+        android:title="USD" />
+    <item
+            android:id="@+id/euro"
+            android:title="EUR" />
+    <item
+            android:id="@+id/yen"
+            android:title="JPY" />
+    <item
+            android:id="@+id/usa"
+            android:title="USD" />
+    <item
+            android:id="@+id/usa"
+            android:title="USD" />
+    <item
+            android:id="@+id/usa"
+            android:title="USD" />
+    <item
+            android:id="@+id/usa"
+            android:title="USD" />
+    <item
+            android:id="@+id/usa"
+            android:title="USD" />
+    <item
+        android:id="@+id/usa"
+        android:title="USD" />
+    <item
+        android:id="@+id/usa"
+        android:title="USD" />
+
+
+
+
+</menu>
