@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         String[] list = {"aaa", "bbb", "ccc"};
-        ListView listView =
+        ListView listView = new ListView(view.getContext());
     }
 
 }
