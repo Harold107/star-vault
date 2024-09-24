@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment = new HomeFragment();
     CardView homeBackdrop;
+    String[] testList = {"aaa", "bbb"};
+    ListView homeListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(binding.getRoot());
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit(); //replace framelayout with homeFragment
 
