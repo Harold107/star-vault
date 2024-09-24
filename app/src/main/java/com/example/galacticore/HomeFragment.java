@@ -1,6 +1,7 @@
 package com.example.galacticore;
 
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
