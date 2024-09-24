@@ -27,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment = new HomeFragment();
-    CardView homeBackdrop;
-    String[] testList = {"aaa", "bbb"};
-    ListView homeListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
