@@ -6,7 +6,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Settings_Page" android:textAlignment="center">
+        tools:context=".Settings_Page" android:textAlignment="center" android:background="@drawable/gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="409dp"
@@ -18,8 +18,8 @@
             android:layout_marginStart="2dp">
 
         <androidx.cardview.widget.CardView
-                android:layout_width="350dp"
-                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/cardView" app:cardElevation="5dp"
                 android:elevation="5dp" app:cardMaxElevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
 
                 <TextView
                         android:text="Notification"
-                        android:layout_width="304dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:id="@+id/notification"
                         android:textSize="45sp" android:textAlignment="center"
                         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +43,8 @@
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"/>
                 <Switch
                         android:text="Reminder"
-                        android:layout_width="309dp"
-                        android:layout_height="42dp" android:id="@+id/reminder_switch"
+                        android:layout_width="306dp"
+                        android:layout_height="46dp" android:id="@+id/reminder_switch"
                         android:textSize="25sp"
                         android:layout_marginEnd="204dp"
                         app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="4dp"
@@ -109,12 +109,13 @@
                         app:layout_constraintBottom_toTopOf="@+id/button2"
                         android:layout_marginTop="32dp"/>
                 <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="152dp"
-                        android:layout_height="38dp"
+                        android:id="@+id/textInputLayout"
+                        android:layout_width="169dp"
+                        android:layout_height="39dp"
                         android:hint="@string/select"
                         android:textSize="16sp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:id="@+id/textInputLayout" android:layout_marginBottom="24dp"
+                        android:layout_marginBottom="24dp"
                         app:layout_constraintBottom_toTopOf="@+id/button2" android:layout_marginStart="32dp"
                         app:layout_constraintStart_toEndOf="@+id/Currency_txt" android:layout_marginEnd="12dp"
                         app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="7dp"
@@ -124,7 +125,8 @@
                             android:id="@+id/dropdown_menu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="none"/>
+                            android:inputType="none"
+                            android:text=""/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <Button
                         android:text="Delete Account"
@@ -143,7 +145,7 @@
                 android:layout_width="300dp"
                 android:textSize="25sp"
                 android:backgroundTint="@color/red"
-                android:layout_height="wrap_content" android:id="@+id/button3"
+                android:layout_height="wrap_content" android:id="@+id/logout_button"
                 android:layout_marginEnd="55dp" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="54dp"
                 android:layout_marginBottom="30dp" app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
@@ -215,7 +217,7 @@
             android:layout_width="412dp"
             android:layout_height="64dp" android:id="@+id/textView"
             android:textAlignment="center" android:textSize="45dp"
-            android:textColor="#F6F3F3" android:textColorLink="#7440CE" android:background="#713FC7"
+            android:textColor="#F6F3F3" android:textColorLink="#7440CE" android:background="@drawable/gradient"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout"/>
