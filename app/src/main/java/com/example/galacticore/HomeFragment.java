@@ -21,9 +21,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    private ListView listView;
-    private ArrayList<String> arrayList;
-    private ArrayAdapter<String> arrayAdapter;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -40,7 +38,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
     }
 
     @Override
@@ -48,7 +45,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        listView = (ListView) view.findViewById(R.id.listView_transaction);
+
 
         return view;
     }
