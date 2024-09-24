@@ -1,7 +1,13 @@
 package com.example.galacticore;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
@@ -44,6 +50,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btn = findViewById(R.id.newTransaction_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                Log.i("My function", "You click it");
+                Toast.makeText(MainActivity.this, "YAY", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
