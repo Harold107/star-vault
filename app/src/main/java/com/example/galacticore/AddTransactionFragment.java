@@ -1,24 +1,39 @@
 package com.example.galacticore;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import com.example.galacticore.databinding.FragmentAddTransactionBinding;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class AddTransactionFragment extends Fragment {
 
-    private FragmentAddTransactionBinding binding;
+    private MaterialButtonToggleGroup toggleGroup;
+    private EditText editTextDate;
+    private Spinner spinnerCategory;
+    private EditText editTextAmount;
+    private EditText editTextNote;
+    private Button buttonSave;
+    private ViewGroup calculatorLayout;
+
+    private boolean isIncome = true;
+    private List<String> incomeCategories = Arrays.asList("Salary", "Investments", "Gifts", "Other");
+    private List<String> expenseCategories = Arrays.asList("Food", "Transport", "Entertainment", "Bills", "Other");
+
     private StringBuilder currentInput = new StringBuilder();
     private String currentOperation = "";
     private double firstOperand = 0;
@@ -26,8 +41,17 @@ public class AddTransactionFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentAddTransactionBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        View view = inflater.inflate(R.layout.fragment_add_transaction, container, false);
+
+        toggleGroup = view.findViewById(R.id.toggleGroup);
+        editTextDate = view.findViewById(R.id.editTextDate);
+        spinnerCategory = view.findViewById(R.id.spinnerCategory);
+        editTextAmount = view.findViewById(R.id.editTextAmount);
+        editTextNote = view.findViewById(R.id.editTextNote);
+        buttonSave = view.findViewById(R.id.buttonSave);
+        calculatorLayout = view.findViewById(R.id.calculatorLayout);
+
+        return view;
     }
 
     @Override
@@ -36,96 +60,101 @@ public class AddTransactionFragment extends Fragment {
 
         setupToggleGroup();
         setupCategorySpinner();
-        setupSaveButton();
-        setupCalculatorButtons();
         setupDateInput();
+        setupCalculator();
+        setupSaveButton();
     }
 
-    @SuppressLint("ResourceType")
     private void setupToggleGroup() {
-        binding.toggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+        toggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             if (isChecked) {
-                // Handle Income selection
-               // if (checkedId == R.id.btnIncome)
-                 //   binding.btnDot.setBackgroundResource(getResources().getColor(R.color.gradient_2_purple));
-              //  else if (checkedId == R.id.btnExpense) {
-                    // Handle Expense selection
-                   // binding.btnDot.setBackgroundColor(getResources().getColor(R.color.gradient_2_purple));
-              //  }
+                isIncome = checkedId == R.id.btnIncome;
+                updateCategorySpinner();
             }
         });
+        toggleGroup.check(R.id.btnIncome);
     }
 
     private void setupCategorySpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.categories_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_spinner_item,
+                isIncome ? incomeCategories : expenseCategories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.spinnerCategory.setAdapter(adapter);
+        spinnerCategory.setAdapter(adapter);
     }
 
-    private void setupSaveButton() {
-        binding.buttonSave.setOnClickListener(v -> saveTransaction());
+    private void updateCategorySpinner() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_spinner_item,
+                isIncome ? incomeCategories : expenseCategories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
     }
 
     private void setupDateInput() {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
         String currentDate = sdf.format(new Date());
-        binding.editTextDate.setText(currentDate);
+        editTextDate.setText(currentDate);
     }
 
-    private void setupCalculatorButtons() {
-        View.OnClickListener numberListener = v -> {
-            Button button = (Button) v;
-            currentInput.append(button.getText().toString());
-            updateAmountDisplay();
+    private void setupCalculator() {
+        String[] buttonLabels = {
+                "7", "8", "9", "×",
+                "4", "5", "6", "-",
+                "1", "2", "3", "+",
+                "C", "0", ".", "="
         };
 
-        View.OnClickListener operationListener = v -> {
-            Button button = (Button) v;
-            if (!currentInput.toString().isEmpty()) {
-                if (!isNewOperation) {
-                    calculateResult();
-                }
-                firstOperand = Double.parseDouble(currentInput.toString());
-                currentOperation = button.getText().toString();
-                isNewOperation = false;
-                currentInput.setLength(0);
-            }
-        };
-
-        binding.btn0.setOnClickListener(numberListener);
-        binding.btn1.setOnClickListener(numberListener);
-        binding.btn2.setOnClickListener(numberListener);
-        binding.btn3.setOnClickListener(numberListener);
-        binding.btn4.setOnClickListener(numberListener);
-        binding.btn5.setOnClickListener(numberListener);
-        binding.btn6.setOnClickListener(numberListener);
-        binding.btn7.setOnClickListener(numberListener);
-        binding.btn8.setOnClickListener(numberListener);
-        binding.btn9.setOnClickListener(numberListener);
-        binding.btnDoubleZero.setOnClickListener(numberListener);
-        binding.btnDot.setOnClickListener(v -> {
-            if (!currentInput.toString().contains(".")) {
-                currentInput.append(".");
-                updateAmountDisplay();
-            }
-        });
-
-        binding.btnPlus.setOnClickListener(operationListener);
-        binding.btnMinus.setOnClickListener(operationListener);
-        binding.btnMultiply.setOnClickListener(operationListener);
-
-        binding.btnEquals.setOnClickListener(v -> calculateResult());
-
-
+        for (String label : buttonLabels) {
+            MaterialButton button = new MaterialButton(requireContext());
+            button.setText(label);
+            button.setOnClickListener(v -> onCalculatorButtonClick(label));
+            calculatorLayout.addView(button);
+        }
     }
 
-    private void updateAmountDisplay() {
-        binding.editTextAmount.setText(currentInput.toString());
+    private void onCalculatorButtonClick(String label) {
+        switch (label) {
+            case "=":
+                calculateResult();
+                break;
+            case "C":
+                clearCalculator();
+                break;
+            case "+":
+            case "-":
+            case "×":
+                setOperation(label);
+                break;
+            default:
+                appendNumber(label);
+                break;
+        }
+        updateAmountDisplay();
+    }
+
+    private void appendNumber(String number) {
+        if (isNewOperation) {
+            currentInput = new StringBuilder(number);
+            isNewOperation = false;
+        } else {
+            currentInput.append(number);
+        }
+    }
+
+    private void setOperation(String operation) {
+        if (!currentInput.toString().isEmpty()) {
+            if (!currentOperation.isEmpty()) {
+                calculateResult();
+            }
+            firstOperand = Double.parseDouble(currentInput.toString());
+            currentOperation = operation;
+            isNewOperation = true;
+        }
     }
 
     private void calculateResult() {
-        if (!currentInput.toString().isEmpty() && !currentOperation.isEmpty()) {
+        if (!currentOperation.isEmpty() && !isNewOperation) {
             double secondOperand = Double.parseDouble(currentInput.toString());
             double result = 0;
             switch (currentOperation) {
@@ -139,21 +168,34 @@ public class AddTransactionFragment extends Fragment {
                     result = firstOperand * secondOperand;
                     break;
             }
-            currentInput.setLength(0);
-            currentInput.append(result);
-            updateAmountDisplay();
+            currentInput = new StringBuilder(String.valueOf(result));
+            currentOperation = "";
             isNewOperation = true;
         }
     }
 
-    private void saveTransaction() {
-        String date = binding.editTextDate.getText().toString();
-        String category = binding.spinnerCategory.getSelectedItem().toString();
-        String amountStr = binding.editTextAmount.getText().toString();
-        String note = binding.editTextNote.getText().toString();
-        boolean isIncome = binding.toggleGroup.getCheckedButtonId() == R.id.btnIncome;
+    private void clearCalculator() {
+        currentInput = new StringBuilder();
+        currentOperation = "";
+        firstOperand = 0;
+        isNewOperation = true;
+    }
 
-        if (date.isEmpty() || amountStr.isEmpty() || category.isEmpty()) {
+    private void updateAmountDisplay() {
+        editTextAmount.setText(currentInput.toString());
+    }
+
+    private void setupSaveButton() {
+        buttonSave.setOnClickListener(v -> saveTransaction());
+    }
+
+    private void saveTransaction() {
+        String date = editTextDate.getText().toString();
+        String category = spinnerCategory.getSelectedItem().toString();
+        String amountStr = editTextAmount.getText().toString();
+        String note = editTextNote.getText().toString();
+
+        if (date.isEmpty() || category.isEmpty() || amountStr.isEmpty()) {
             Toast.makeText(getContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -176,11 +218,4 @@ public class AddTransactionFragment extends Fragment {
             });
         }).start();
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-    
 }

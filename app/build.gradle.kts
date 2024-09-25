@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
@@ -43,6 +44,7 @@ dependencies {
 
     // Room dependencies
     implementation(libs.room.runtime)
+    implementation(libs.gridlayout)
     annotationProcessor(libs.room.compiler)
 
     testImplementation(libs.junit)

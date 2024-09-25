@@ -7,8 +7,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
-import com.example.galacticore.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.galacticore.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,13 +44,5 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (db != null) {
-            db.close();
-        }
     }
 }
