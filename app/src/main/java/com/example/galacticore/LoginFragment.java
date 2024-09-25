@@ -5,51 +5,55 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-/**
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
- A simple {@link Fragment} subclass.
- Use the {@link LoginFragment#newInstance} factory method to
- create an instance of this fragment.*/
 public class LoginFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private EditText usernameInput;
+    private EditText passwordInput;
+    private Button loginButton;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // Preset username and password for demonstration
+    private String correctUsername = "admin";
+    private String correctPassword = "12345";
 
-    public LoginFragment() {
-        // Required empty public constructor
-    }
-
-
-    // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        // Initialize views
+        usernameInput = view.findViewById(R.id.username_input);
+        passwordInput = view.findViewById(R.id.password_input);
+        loginButton = view.findViewById(R.id.login_btn);
+
+        // Set onClickListener for the login button
+        loginButton.setOnClickListener(v -> checkLogin());
+
+        return view;
+    }
+
+    // Method to check username and password
+    private void checkLogin() {
+        String username = usernameInput.getText().toString();
+        String password = passwordInput.getText().toString();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(getActivity(), "Please enter both username and password", Toast.LENGTH_SHORT).show();
+        } else if (username.equals(correctUsername) && password.equals(correctPassword)) {
+            // Login successful
+            Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
+            // You can also navigate to another fragment or activity here
+        } else {
+            // Login failed
+            Toast.makeText(getActivity(), "Incorrect username or password", Toast.LENGTH_SHORT).show();
+        }
     }
 }
