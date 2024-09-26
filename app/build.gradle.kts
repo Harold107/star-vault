@@ -45,8 +45,9 @@ dependencies {
     // Room dependencies
     implementation(libs.room.runtime)
     implementation(libs.gridlayout)
+    implementation(libs.support.annotations)
     annotationProcessor(libs.room.compiler)
-
+    implementation(libs.exp4j)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

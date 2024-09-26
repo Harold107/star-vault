@@ -29,9 +29,11 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        // Initialized Room database
+        // Initialize Room database
         db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "transaction-db").build();
+                        AppDatabase.class, "transaction-db")
+                .fallbackToDestructiveMigration() // Add this line
+                .build();
 
         FloatingActionButton fab = binding.fab;
         fab.setOnClickListener(view ->
