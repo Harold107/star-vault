@@ -2,12 +2,8 @@ package com.example.galacticore;
 
 import android.os.Bundle;
 
-import android.view.View;
-import android.view.WindowInsetsController;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
+import android.view.*;
+import android.widget.*;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +30,32 @@ public class Settings_Page extends AppCompatActivity {
         setContentView(R.layout.activity_settings_page);
         WindowInsert();
         Menu();
+        CreatePopUpWindow();
+    }
+
+    private void CreatePopUpWindow() {
+        LayoutInflater inflater =(LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popUpView=inflater.inflate(R.layout.reminder_poput, null);
+
+        int width= ViewGroup.LayoutParams.MATCH_PARENT;
+        int height=ViewGroup.LayoutParams.WRAP_CONTENT;
+        boolean focusable=true;
+
+        final PopupWindow popupWindow=new PopupWindow(popUpView, width, height, focusable);
+
+        Switch reminderSwitch = findViewById(R.id.reminder_switch);
+        reminderSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    popupWindow.showAtLocation(buttonView, Gravity.CENTER, 0, 0);
+                }else{
+                    if(popupWindow.isShowing()){
+                        popupWindow.dismiss();
+                    }
+                }
+            }
+        });
     }
 
     private void WindowInsert(){
