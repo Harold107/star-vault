@@ -12,11 +12,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.galacticore.databinding.ActivityMainBinding;
 
 import android.view.Menu;
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment = new HomeFragment();
+    private AppBarConfiguration appBarConfiguration;
+    private ActivityMainBinding binding;
+    public static AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
         //testing
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+        db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "transaction-db")
+                .fallbackToDestructiveMigration() // Add this line
+                .build();
+
+        FloatingActionButton fab = binding.fab;
+        fab.setOnClickListener(view ->
+                navController.navigate(R.id.action_FirstFragment_to_addTransactionFragment)
+        );
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit(); //replace framelayout with homeFragment
 
@@ -52,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button btn = findViewById(R.id.newTransaction_btn);
         btn.setOnClickListener(new View.OnClickListener() {
-
+        // Initialize Room database
             @Override
             public void onClick(View v) {
                 Log.i("My function", "You click it");

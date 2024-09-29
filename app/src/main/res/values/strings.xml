@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GalactiCore</string>
     <string name="action_settings">Settings</string>
@@ -6,6 +7,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="welcome_to_starvault">welcome\n</string>
+    <string name="welcome_message">welcomee\n</string>
 
 
 
