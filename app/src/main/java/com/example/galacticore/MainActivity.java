@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("My function", "You click it");
-                Toast.makeText(MainActivity.this, "YAY", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "To transaction Page", Toast.LENGTH_SHORT).show();
             }
         });
     }

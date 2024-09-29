@@ -5,11 +5,11 @@
             android:icon="@drawable/bnt_home"
             android:id="@+id/home"/>
 
-    <item android:title="Account"
-            android:icon="@drawable/bnt_account"
-            android:id="@+id/account"/>
+<!--    <item android:title="Account"-->
+<!--            android:icon="@drawable/bnt_account"-->
+<!--            android:id="@+id/account"/>-->
 
-    <item android:title="Setting"
-            android:icon="@drawable/bnt_setting"
-            android:id="@+id/setting"/>
+<!--    <item android:title="Setting"-->
+<!--            android:icon="@drawable/bnt_setting"-->
+<!--            android:id="@+id/setting"/>-->
 </menu>
