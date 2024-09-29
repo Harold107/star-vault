@@ -3,6 +3,7 @@ package com.example.galacticore;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -16,7 +17,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.room.Room;
+//import androidx.room.Room;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.galacticore.databinding.ActivityMainBinding;
 
@@ -37,18 +38,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //setContentView(binding.getRoot());
-        //testing
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        db = Room.databaseBuilder(getApplicationContext(),
-                        AppDatabase.class, "transaction-db")
-                .fallbackToDestructiveMigration() // Add this line
-                .build();
-
-        FloatingActionButton fab = binding.fab;
-        fab.setOnClickListener(view ->
-                navController.navigate(R.id.action_FirstFragment_to_addTransactionFragment)
-        );
+//        db = Room.databaseBuilder(getApplicationContext(),
+//                        AppDatabase.class, "transaction-db")
+//                .fallbackToDestructiveMigration() // Add this line
+//                .build();
+//
+//        FloatingActionButton fab = binding.fab;
+//        fab.setOnClickListener(view ->
+//                navController.navigate(R.id.action_FirstFragment_to_addTransactionFragment)
+//        );
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit(); //replace framelayout with homeFragment
 
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("My function", "You click it");
                 Toast.makeText(MainActivity.this, "To transaction Page", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
