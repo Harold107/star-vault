@@ -27,16 +27,13 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment = new HomeFragment();
-    CardView homeBackdrop;
-    String[] testList = {"aaa", "bbb"};
-    ListView homeListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //setContentView(binding.getRoot());
-
+        //testing
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
 
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("My function", "You click it");
-                Toast.makeText(MainActivity.this, "YAY", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "To transaction Page", Toast.LENGTH_SHORT).show();
             }
         });
     }

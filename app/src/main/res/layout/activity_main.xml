@@ -49,6 +49,7 @@
         <Button
                 android:text="+"
                 android:textSize="25sp"
+                android:textColor="@color/black"
                 android:layout_width="60dp"
                 android:layout_height="68dp"
                 android:id="@+id/newTransaction_btn"
