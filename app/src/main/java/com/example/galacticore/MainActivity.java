@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment = new HomeFragment();
+    AddTransactionFragment addTransactionFragment = new AddTransactionFragment();
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     public static AppDatabase db;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("My function", "You click it");
                 Toast.makeText(MainActivity.this, "To transaction Page", Toast.LENGTH_SHORT).show();
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,addTransactionFragment).commit();
             }
         });
     }
