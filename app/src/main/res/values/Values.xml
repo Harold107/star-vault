@@ -30,10 +30,10 @@
     <!-- Strings -->
     <string name="app_name">GalactiCore</string>
     <string name="action_settings">Settings</string>
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="Home_fragment_label">Home Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="current_goal">Current Goal</string>
 
     <!-- Add Transaction Strings -->
     <string name="new_transaction">New Transaction</string>
