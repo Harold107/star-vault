@@ -46,14 +46,14 @@ public class LoginFragment extends Fragment {
         String password = passwordInput.getText().toString();
 
         if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(getActivity(), "Please enter both username and password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Please enter both Username and Password", Toast.LENGTH_SHORT).show();
         } else if (username.equals(correctUsername) && password.equals(correctPassword)) {
             // Login successful
             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
             // You can also navigate to another fragment or activity here
         } else {
             // Login failed
-            Toast.makeText(getActivity(), "Incorrect username or password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Incorrect Username or Password", Toast.LENGTH_SHORT).show();
         }
     }
 }
