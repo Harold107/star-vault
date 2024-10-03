@@ -42,6 +42,17 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.annotation)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+
+    // Room dependencies
+    implementation(libs.room.runtime)
+    implementation(libs.gridlayout)
+    implementation(libs.support.annotations)
+    annotationProcessor(libs.room.compiler)
+    implementation(libs.exp4j)
+    //implementation(libs.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -1,28 +1,78 @@
 package com.example.galacticore;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+//import androidx.room.Room;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.galacticore.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
-    LoginFragment loginFragment = new LoginFragment();
+    BottomNavigationView bottomNavigationView;
+    HomeFragment homeFragment = new HomeFragment();
+    AddTransactionFragment addTransactionFragment = new AddTransactionFragment();
+    private AppBarConfiguration appBarConfiguration;
+    private ActivityMainBinding binding;
+    public static AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+        //setContentView(binding.getRoot());
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,loginFragment).commit();
+//        db = Room.databaseBuilder(getApplicationContext(),
+//                        AppDatabase.class, "transaction-db")
+//                .fallbackToDestructiveMigration() // Add this line
+//                .build();
+//
+//        FloatingActionButton fab = binding.fab;
+//        fab.setOnClickListener(view ->
+//                navController.navigate(R.id.action_FirstFragment_to_addTransactionFragment)
+//        );
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit(); //replace framelayout with homeFragment
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                if(item.getItemId() == R.id.home) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        Button btn = findViewById(R.id.newTransaction_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+        // Initialize Room database
+            @Override
+            public void onClick(View v) {
+                Log.i("My function", "You click it");
+                Toast.makeText(MainActivity.this, "To transaction Page", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,addTransactionFragment).commit();
+            }
+        });
     }
 }
