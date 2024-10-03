@@ -3,21 +3,9 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/firstFragment">
+            app:startDestination="@id/settings_Page">
 
-    <fragment
-            android:id="@+id/SecondFragment"
-            android:name="com.example.galacticore.SecondFragment"
-            android:label="@string/second_fragment_label"
-            tools:layout="@layout/fragment_second">
-        <action android:id="@+id/action_SecondFragment_to_settings_Page" app:destination="@id/settings_Page"/>
-        <action android:id="@+id/action_SecondFragment_to_firstFragment" app:destination="@id/firstFragment"/>
-    </fragment>
+    <fragment android:id="@+id/settings_" android:name="com.example.galacticore.settings_" android:label="settings_"/>
     <activity android:id="@+id/settings_Page" android:name="com.example.galacticore.Settings_Page"
               android:label="activity_settings_page" tools:layout="@layout/activity_settings_page"/>
-    <fragment android:id="@+id/firstFragment" android:name="com.example.galacticore.FirstFragment"
-              android:label="fragment_first" tools:layout="@layout/fragment_first">
-        <action android:id="@+id/action_firstFragment_to_SecondFragment" app:destination="@id/SecondFragment"/>
-        <action android:id="@+id/action_firstFragment_to_settings_Page" app:destination="@id/settings_Page"/>
-    </fragment>
 </navigation>
