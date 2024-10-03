@@ -19,6 +19,10 @@
     <color name="navigationIcon_pink">#C647BF</color>
 
 
+    <color name="pink">#FF4081</color>
+    <color name="light_grey">#DDDDDD</color>
+
+
     <!-- Theme colors -->
     <color name="colorPrimary">@color/gradient_1_purple</color>
     <color name="colorPrimaryDark">@color/gradient_2_purple</color>

@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    LoginFragment loginFragment = new LoginFragment();
     HomeFragment homeFragment = new HomeFragment();
     AddTransactionFragment addTransactionFragment = new AddTransactionFragment();
     private AppBarConfiguration appBarConfiguration;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 //                navController.navigate(R.id.action_FirstFragment_to_addTransactionFragment)
 //        );
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit(); //replace framelayout with homeFragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,loginFragment).commit(); //replace framelayout with homeFragment
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
