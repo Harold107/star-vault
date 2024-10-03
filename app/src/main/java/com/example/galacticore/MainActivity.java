@@ -1,78 +1,61 @@
 package com.example.galacticore;
 
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-//import androidx.room.Room;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.room.Room;
 import com.example.galacticore.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import org.jetbrains.annotations.NotNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
-    BottomNavigationView bottomNavigationView;
-    HomeFragment homeFragment = new HomeFragment();
-    AddTransactionFragment addTransactionFragment = new AddTransactionFragment();
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
     public static AppDatabase db;
+    private ActivityMainBinding binding;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //setContentView(binding.getRoot());
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-//        db = Room.databaseBuilder(getApplicationContext(),
-//                        AppDatabase.class, "transaction-db")
-//                .fallbackToDestructiveMigration() // Add this line
-//                .build();
-//
-//        FloatingActionButton fab = binding.fab;
-//        fab.setOnClickListener(view ->
-//                navController.navigate(R.id.action_FirstFragment_to_addTransactionFragment)
-//        );
+        // Initialized Room database
+        db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "transaction-database")
+                .fallbackToDestructiveMigration()
+                .build();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit(); //replace framelayout with homeFragment
+        // Set up Navigation
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment);
+        if (navHostFragment != null) {
+            navController = navHostFragment.getNavController();
+            BottomNavigationView bottomNav = binding.bottomNavigationView;
+            NavigationUI.setupWithNavController(bottomNav, navController);
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                if(item.getItemId() == R.id.home) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
-                    return true;
+            // Set up the FAB for adding new transactions
+            binding.newTransactionBtn.setOnClickListener(v ->
+                    navController.navigate(R.id.action_homeFragment_to_addTransactionFragment)
+            );
+
+            // Hide bottom navigation on certain fragments
+            navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+                if (destination.getId() == R.id.addTransactionFragment) {
+                    bottomNav.setVisibility(View.GONE);
+                    binding.newTransactionBtn.setVisibility(View.GONE);
+                } else {
+                    bottomNav.setVisibility(View.VISIBLE);
+                    binding.newTransactionBtn.setVisibility(View.VISIBLE);
                 }
-                return false;
-            }
-        });
+            });
+        }
+    }
 
-        Button btn = findViewById(R.id.newTransaction_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-        // Initialize Room database
-            @Override
-            public void onClick(View v) {
-                Log.i("My function", "You click it");
-                Toast.makeText(MainActivity.this, "To transaction Page", Toast.LENGTH_SHORT).show();
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,addTransactionFragment).commit();
-            }
-        });
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
     }
 }

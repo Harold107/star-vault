@@ -18,6 +18,9 @@
     <color name="navigationBar_grey">#D9D9D9</color>
     <color name="navigationIcon_pink">#C647BF</color>
 
+    <color name="positive_color">#22A600</color>
+    <color name="negative_color">#A60000</color>
+
 
     <!-- Theme colors -->
     <color name="colorPrimary">@color/gradient_1_purple</color>
@@ -52,6 +55,9 @@
     <string name="add_transaction">add trans\n</string>
 
     <string name="category_content_description">Select or enter a transaction category</string>
+    <string name="home_fragment_label">home_fragment\n</string>
+    <string name="add_new_transaction">add_new_trans\n</string>
+    <string name="home">home\n</string>
     <!-- Styles -->
     <style name="Theme.GalactiCore" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>

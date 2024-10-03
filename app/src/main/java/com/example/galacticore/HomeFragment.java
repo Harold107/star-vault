@@ -1,74 +1,94 @@
 package com.example.galacticore;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.*;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import org.jetbrains.annotations.NotNull;
-
+import android.widget.AdapterView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import com.example.galacticore.databinding.FragmentHomeBinding;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
-public class HomeFragment extends Fragment implements AdapterView.OnItemClickListener{
-
+public class HomeFragment extends Fragment implements AdapterView.OnItemClickListener {
+    private FragmentHomeBinding binding;
+    private TransactionAdapter adapter;
+    private List<Transaction> transactions = new ArrayList<>();
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_home, container, false);
-
-        //
-        ProgressBar progressBar = view.findViewById(R.id.current_goal_bar);
-        progressBar.getProgressDrawable().setColorFilter(Color.CYAN, android.graphics.PorterDuff.Mode.SRC_IN);
-        progressBar.setProgress(0);
-
-        return view;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setupTransactionList();
+        loadTransactions();
+    }
 
-        //rocket animation
-        ImageView rocket = (ImageView) view.findViewById(R.id.rocket_home);
-        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.rocket_animation);
-        rocket.startAnimation(animation);
+    private void setupTransactionList() {
+        adapter = new TransactionAdapter(requireContext(), transactions);
+        binding.listViewTransaction.setAdapter(adapter);
+        binding.listViewTransaction.setOnItemClickListener(this);
+    }
 
+    private void loadTransactions() {
+        new Thread(() -> {
+            List<Transaction> loadedTransactions = MainActivity.db.transactionDao().getRecentTransactions();
+            double totalIncome = MainActivity.db.transactionDao().getTotalIncome();
+            double totalExpenses = MainActivity.db.transactionDao().getTotalExpenses();
+            requireActivity().runOnUiThread(() -> {
+                transactions.clear();
+                transactions.addAll(loadedTransactions);
+                adapter.notifyDataSetChanged();
+                updateUI(totalIncome, totalExpenses);
+            });
+        }).start();
+    }
 
+    private void updateUI(double totalIncome, double totalExpenses) {
+        binding.textViewMonthlyIncomeNumber.setText(String.format(Locale.getDefault(), "$%.2f", totalIncome));
+        binding.textViewMonthlyExpensesNumber.setText(String.format(Locale.getDefault(), "$%.2f", totalExpenses));
+        double balance = totalIncome - totalExpenses;
+        binding.textViewMonthlyBalanceNumber.setText(String.format(Locale.getDefault(), "$%.2f", balance));
 
-        //transaction list
-        String[] list = {"Food", "Tuition", "Book"};
-        ListView listView = (ListView) view.findViewById(R.id.listView_transaction);
-        ArrayAdapter<String> adopter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(adopter);
-        listView.setOnItemClickListener(this);
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+        binding.textViewViewDate.setText(sdf.format(new Date()));
+
+        // Update goal progress
+        double goalAmount = 100000; // Assuming the goal is $100,000
+        int progress = (int) ((totalIncome / goalAmount) * 100);
+        binding.currentGoalBar.setProgress(Math.min(progress, 100));
+        binding.textViewGoalNumber.setText(String.format(Locale.getDefault(), "$%.2f", goalAmount));
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        if(position==0){
-            Toast.makeText(getActivity(), "$500", Toast.LENGTH_SHORT).show();
-        }
-        if(position==1){
-            Toast.makeText(getActivity(), "$3,000", Toast.LENGTH_SHORT).show();
-        }
-        if(position==2){
-            Toast.makeText(getActivity(), "$80", Toast.LENGTH_SHORT).show();
-        }
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Transaction transaction = transactions.get(position);
+        String message = String.format(Locale.getDefault(), "%s: $%.2f - %s",
+                transaction.isIncome() ? "Income" : "Expense",
+                transaction.getAmount(),
+                transaction.getCategory());
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadTransactions();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
