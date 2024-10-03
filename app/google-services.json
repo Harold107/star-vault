@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "905532783346",
+    "project_id": "star-vault-data",
+    "storage_bucket": "star-vault-data.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905532783346:android:bf43c267c5583823f9ee6b",
+        "android_client_info": {
+          "package_name": "com.example.galacticore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnb9wPMNI7Y7vlFeOyyGR8vmun77B0ob4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
