@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -17,7 +17,6 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class AddTransactionFragment extends Fragment {
@@ -26,7 +25,6 @@ public class AddTransactionFragment extends Fragment {
     private boolean isIncome = true;
     private final String[] incomeCategories = {"Salary", "Investments", "Gifts", "Other"};
     private final String[] expenseCategories = {"Food", "Transport", "Entertainment", "Bills", "Other"};
-    private TextView categoryTextView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,10 +33,8 @@ public class AddTransactionFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        categoryTextView = binding.textViewCategory;
 
         setupToggleGroup();
         setupDatePicker();
@@ -54,51 +50,40 @@ public class AddTransactionFragment extends Fragment {
                 updateCategorySelection();
             }
         });
-        // Set initial selection
         binding.toggleGroup.check(R.id.btnIncome);
     }
 
     private void setupDatePicker() {
         binding.editTextDate.setOnClickListener(v -> showDatePickerDialog());
-        // Set current date as default
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-        binding.editTextDate.setText(sdf.format(new Date()));
+        binding.editTextDate.setText(sdf.format(Calendar.getInstance().getTime()));
     }
 
     private void showDatePickerDialog() {
         Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                requireContext(),
-                (view, year, month, dayOfMonth) -> {
-                    Calendar selectedDate = Calendar.getInstance();
-                    selectedDate.set(year, month, dayOfMonth);
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-                    binding.editTextDate.setText(sdf.format(selectedDate.getTime()));
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-        );
-        datePickerDialog.show();
+        new DatePickerDialog(requireContext(), (view, year, month, dayOfMonth) -> {
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.set(year, month, dayOfMonth);
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+            binding.editTextDate.setText(sdf.format(selectedDate.getTime()));
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private void setupCategorySelection() {
-        categoryTextView.setOnClickListener(v -> showCategoryDialog());
+        binding.textViewCategory.setOnClickListener(v -> showCategoryDialog());
         updateCategorySelection();
     }
 
     private void showCategoryDialog() {
         String[] categories = isIncome ? incomeCategories : expenseCategories;
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Select Category")
-                .setItems(categories, (dialog, which) -> {
-                    categoryTextView.setText(categories[which]);
-                });
-        builder.create().show();
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Select Category")
+                .setItems(categories, (dialog, which) -> binding.textViewCategory.setText(categories[which]))
+                .show();
     }
 
     private void updateCategorySelection() {
-        categoryTextView.setText(R.string.select_category);
+        binding.textViewCategory.setText(R.string.select_category);
     }
 
     private void setupSaveButton() {
@@ -107,7 +92,7 @@ public class AddTransactionFragment extends Fragment {
 
     private void saveTransaction() {
         String date = binding.editTextDate.getText().toString();
-        String category = categoryTextView.getText().toString();
+        String category = binding.textViewCategory.getText().toString();
         String amountStr = binding.editTextAmount.getText().toString();
         String note = binding.editTextNote.getText().toString();
 
@@ -130,7 +115,7 @@ public class AddTransactionFragment extends Fragment {
             MainActivity.db.transactionDao().insert(transaction);
             requireActivity().runOnUiThread(() -> {
                 Toast.makeText(getContext(), R.string.transaction_saved, Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(requireView()).navigateUp();
+                Navigation.findNavController(requireView()).navigate(R.id.action_addTransactionFragment_to_homeFragment);
             });
         }).start();
     }
@@ -148,7 +133,7 @@ public class AddTransactionFragment extends Fragment {
                     try {
                         Expression expression = new ExpressionBuilder(currentAmount).build();
                         double result = expression.evaluate();
-                        binding.editTextAmount.setText(String.valueOf(result));
+                        binding.editTextAmount.setText(String.format(Locale.getDefault(), "%.2f", result));
                     } catch (Exception e) {
                         binding.editTextAmount.setText("Error");
                     }
@@ -159,7 +144,7 @@ public class AddTransactionFragment extends Fragment {
             }
         };
 
-        // Attach the listener to all calculator buttons
+        // Attached the listener to all calculator buttons
         binding.button0.setOnClickListener(calculatorClickListener);
         binding.button1.setOnClickListener(calculatorClickListener);
         binding.button2.setOnClickListener(calculatorClickListener);

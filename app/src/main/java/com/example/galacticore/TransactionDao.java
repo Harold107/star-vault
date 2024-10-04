@@ -10,6 +10,15 @@ public interface TransactionDao {
     @Insert
     void insert(Transaction transaction);
 
+    @Query("SELECT * FROM transactions ORDER BY id DESC LIMIT 10")
+    List<Transaction> getRecentTransactions();
+
+    @Query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE isIncome = 1")
+    double getTotalIncome();
+
+    @Query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE isIncome = 0")
+    double getTotalExpenses();
+
     @Query("SELECT * FROM transactions")
     List<Transaction> getAllTransactions();
 }
