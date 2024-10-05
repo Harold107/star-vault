@@ -18,6 +18,9 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         super(context, R.layout.item_transaction, transactions);
     }
 
+    int incomeGreen = Color.argb(255,21,198,1);
+    int expenseRed = Color.argb(255,255,0,0);
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -33,7 +36,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
             categoryView.setText(transaction.getCategory());
             String amountText = (transaction.isIncome() ? "+" : "-") + String.format(Locale.getDefault(), "$%.2f", transaction.getAmount());
             amountView.setText(amountText);
-            amountView.setTextColor(transaction.isIncome() ? Color.DKGRAY: Color.RED);
+            amountView.setTextColor(transaction.isIncome() ? incomeGreen : expenseRed);
         }
 
         return convertView;

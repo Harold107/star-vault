@@ -10,11 +10,10 @@
     <color name="bg_dark">#221734</color>
 
     <color name="txt_lightPink">#FA8D93</color>
-    <color name="txt_darkpink">#FC489C</color>
+    <color name="txt_darkPink">#FC489C</color>
 
     <color name="backDropMain_darkGrey">#F0F0F0</color>
 
-    <color name="transacBnt_orange">#F9A690</color>
     <color name="navigationBar_grey">#D9D9D9</color>
     <color name="navigationIcon_pink">#C647BF</color>
 
