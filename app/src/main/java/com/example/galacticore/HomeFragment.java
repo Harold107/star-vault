@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.galacticore.databinding.FragmentHomeBinding;
+
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +39,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         super.onViewCreated(view, savedInstanceState);
         setupTransactionList();
         loadTransactions();
+        // Rocket animation
         ImageView rocket = (ImageView) getView().findViewById(R.id.rocket_home);
         Animation rocket_fly = AnimationUtils.loadAnimation(this.getContext(), R.anim.rocket_animation);
         rocket.setAnimation(rocket_fly);
@@ -72,10 +75,18 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         binding.textViewViewDate.setText(sdf.format(new Date()));
 
         // Update goal progress
-        double goalAmount = 100000; // Assuming the goal is $100,000
+        double goalAmount = 1000.01; // Assuming the goal is $100,000
         int progress = (int) ((totalIncome / goalAmount) * 100);
         binding.currentGoalBar.setProgress(Math.min(progress, 100));
-        binding.textViewGoalNumber.setText(String.format(Locale.getDefault(), "$%.2f", goalAmount));
+        //binding.textViewGoalNumber.setText(String.format(Locale.getDefault(), "$%.2f", goalAmount));
+        binding.textViewGoalNumber.setText(prettyNumber(goalAmount));
+    }
+
+    public String prettyNumber(double goal){
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+        String goalStr = nf.format(goal);;
+
+        return goalStr;
     }
 
     @Override
