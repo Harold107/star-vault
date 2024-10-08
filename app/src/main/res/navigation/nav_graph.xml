@@ -3,18 +3,53 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/loginFragment">
-    <fragment android:id="@+id/loginFragment" android:name="com.example.galacticore.LoginFragment"
-              android:label="fragment_login" tools:layout="@layout/fragment_login">
-        <action android:id="@+id/action_loginFragment_to_homeFragment" app:destination="@id/homeFragment"/>
+            app:startDestination="@id/homeFragment">
+
+    <fragment
+            android:id="@+id/homeFragment"
+            android:name="com.example.galacticore.HomeFragment"
+            android:label="Home"
+            tools:layout="@layout/fragment_home">
+        <action
+                android:id="@+id/action_homeFragment_to_addTransactionFragment"
+                app:destination="@id/addTransactionFragment" />
+        <action
+                android:id="@+id/action_homeFragment_to_transactionDetailFragment"
+                app:destination="@id/transactionDetailFragment" />
     </fragment>
-    <fragment android:id="@+id/homeFragment" android:name="com.example.galacticore.HomeFragment"
-              android:label="fragment_home" tools:layout="@layout/fragment_home">
-        <action android:id="@+id/action_homeFragment_to_addTransactionFragment"
-                app:destination="@id/addTransactionFragment"/>
+
+    <fragment
+            android:id="@+id/addTransactionFragment"
+            android:name="com.example.galacticore.AddTransactionFragment"
+            android:label="Add Transaction"
+            tools:layout="@layout/fragment_add_transaction">
+        <action
+                android:id="@+id/action_addTransactionFragment_to_homeFragment"
+                app:destination="@id/homeFragment"
+                app:popUpTo="@id/homeFragment"
+                app:popUpToInclusive="true" />
     </fragment>
-    <fragment android:id="@+id/addTransactionFragment" android:name="com.example.galacticore.AddTransactionFragment"
-              android:label="fragment_add_transaction" tools:layout="@layout/fragment_add_transaction">
-        <action android:id="@+id/action_addTransactionFragment_to_homeFragment" app:destination="@id/homeFragment"/>
+
+    <fragment
+            android:id="@+id/transactionDetailFragment"
+            android:name="com.example.galacticore.TransactionDetailFragment"
+            android:label="Transaction Detail"
+            tools:layout="@layout/fragment_transaction_detail">
+        <argument
+                android:name="transaction"
+                app:argType="com.example.galacticore.Transaction" />
     </fragment>
+
+    <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.example.galacticore.LoginFragment"
+            android:label="Login"
+            tools:layout="@layout/fragment_login">
+        <action
+                android:id="@+id/action_loginFragment_to_homeFragment"
+                app:destination="@id/homeFragment"
+                app:popUpTo="@id/loginFragment"
+                app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

@@ -1,6 +1,7 @@
 package com.example.galacticore;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import java.util.List;
@@ -21,4 +22,7 @@ public interface TransactionDao {
 
     @Query("SELECT * FROM transactions")
     List<Transaction> getAllTransactions();
+
+    @Delete
+    void delete(Transaction transaction);
 }
