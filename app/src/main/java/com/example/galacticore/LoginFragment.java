@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 public class LoginFragment extends Fragment {
 
@@ -35,13 +36,13 @@ public class LoginFragment extends Fragment {
         loginButton = view.findViewById(R.id.login_btn);
 
         // Set onClickListener for the login button
-        loginButton.setOnClickListener(v -> checkLogin());
+        loginButton.setOnClickListener(v -> checkLogin(view));
 
         return view;
     }
 
     // Method to check username and password
-    private void checkLogin() {
+    private void checkLogin(View view) {
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
 
@@ -50,10 +51,45 @@ public class LoginFragment extends Fragment {
         } else if (username.equals(correctUsername) && password.equals(correctPassword)) {
             // Login successful
             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
-            // You can also navigate to another fragment or activity here
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
+            //Nav to home page
         } else {
             // Login failed
             Toast.makeText(getActivity(), "Incorrect Username or Password", Toast.LENGTH_SHORT).show();
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
