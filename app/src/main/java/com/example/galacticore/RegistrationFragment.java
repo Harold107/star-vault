@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import android.content.SharedPreferences;
+import android.content.Context;
 
 public class RegistrationFragment extends Fragment {
 
@@ -36,6 +38,7 @@ public class RegistrationFragment extends Fragment {
         return view;
     }
 
+
     // Method to register a new user
     private void registerUser() {
         String username = usernameInput.getText().toString();
@@ -47,7 +50,11 @@ public class RegistrationFragment extends Fragment {
         } else if (!password.equals(confirmPassword)) {
             Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();
         } else {
-            // Save user credentials (you can use SharedPreferences, a database, or any other method)
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("username", username);
+            editor.putString("password", password);
+            editor.apply();
             Toast.makeText(getActivity(), "Registration Successful", Toast.LENGTH_SHORT).show();
 
             // Navigate back to the login screen after registration

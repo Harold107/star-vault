@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class LoginFragment extends Fragment {
 
@@ -22,8 +23,8 @@ public class LoginFragment extends Fragment {
     private Button registerButton;
 
     // Preset username and password for demonstration
-    private String correctUsername = "admin";
-    private String correctPassword = "12345";
+    //private String correctUsername = "admin";
+    //private String correctPassword = "12345";
 
     @Nullable
     @Override
@@ -53,9 +54,14 @@ public class LoginFragment extends Fragment {
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
 
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String savedUsername = sharedPreferences.getString("username", null);
+        String savedPassword = sharedPreferences.getString("password", null);
+
+
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(getActivity(), "Please enter both Username and Password", Toast.LENGTH_SHORT).show();
-        } else if (username.equals(correctUsername) && password.equals(correctPassword)) {
+        } else if (username.equals(savedUsername) && password.equals(savedPassword)) {
             // Login successful
             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
