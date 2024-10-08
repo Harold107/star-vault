@@ -1,7 +1,10 @@
 package com.example.galacticore;
 
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +12,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.galacticore.databinding.FragmentHomeBinding;
+import org.w3c.dom.Text;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -43,6 +48,20 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
         ImageView rocket = (ImageView) getView().findViewById(R.id.rocket_home);
         Animation rocket_fly = AnimationUtils.loadAnimation(this.getContext(), R.anim.rocket_animation);
         rocket.setAnimation(rocket_fly);
+        // current goal color
+        TextView goal = (TextView) getView().findViewById((R.id.textView_goalNumber));
+        setTextViewColor(goal, getResources().getColor(R.color.txt_lightPink),
+                getResources().getColor(R.color.txt_darkPink));
+
+    }
+
+    private void setTextViewColor(TextView textView, int...color) {
+        TextPaint paint = textView.getPaint();
+        float width = paint.measureText(textView.getText().toString());
+
+        Shader shader = new LinearGradient(0, 0, width, textView.getTextSize(), color, null, Shader.TileMode.CLAMP);
+        textView.getPaint().setShader(shader);
+        textView.setTextColor(color[0]);
     }
 
     private void setupTransactionList() {
@@ -84,7 +103,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemClickLis
 
     public String prettyNumber(double goal){
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
-        String goalStr = nf.format(goal);;
+        String goalStr = "$" + nf.format(goal);;
 
         return goalStr;
     }

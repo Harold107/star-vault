@@ -41,9 +41,8 @@
                 android:id="@+id/star3_home"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="116dp"
-                android:layout_marginStart="56dp"/>
-
+                android:layout_marginTop="100dp"
+                android:layout_marginStart="68dp"/>
         <ImageView
                 android:src="@drawable/moon_icon"
                 android:layout_width="174dp"
@@ -116,7 +115,7 @@
                         android:id="@+id/textView_goalNumber"
                         app:layout_constraintTop_toBottomOf="@+id/textView_goal"
                         android:layout_marginTop="8dp"
-                        android:textSize="32sp"
+                        android:textSize="38sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -128,7 +127,7 @@
                         app:cardElevation="5dp"
                         android:id="@+id/cardView_monthlyInfoBackdrop"
                         app:layout_constraintTop_toBottomOf="@+id/textView_goalNumber"
-                        android:layout_marginTop="20dp" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="15dp" app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="parent">
 
