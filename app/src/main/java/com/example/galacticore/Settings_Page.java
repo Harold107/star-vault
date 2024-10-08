@@ -1,5 +1,8 @@
 package com.example.galacticore;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.*;
@@ -7,11 +10,14 @@ import android.widget.*;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.PendingIntentCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Calendar;
 
 public class Settings_Page extends AppCompatActivity {
 
@@ -43,6 +49,20 @@ public class Settings_Page extends AppCompatActivity {
 
         final PopupWindow popupWindow=new PopupWindow(popUpView, width, height, focusable);
 
+        TimePicker timepicker = popUpView.findViewById(R.id.Settings_timePicker);
+        Button setAlarmButton = popUpView.findViewById(R.id.btnTimer);
+
+        setAlarmButton.setOnClickListener(v ->{
+            int hour = timepicker.getHour();
+            int minute = timepicker.getMinute();
+
+            setAlarm(hour, minute);
+
+            popupWindow.dismiss();
+
+            Toast.makeText(Settings_Page.this, "Alarm Set for: " + hour + ":" + minute, Toast.LENGTH_SHORT).show();
+        });
+
         Switch reminderSwitch = findViewById(R.id.reminder_switch);
         reminderSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -58,6 +78,20 @@ public class Settings_Page extends AppCompatActivity {
         });
     }
 
+    private void setAlarm(int hour, int minute){
+        AlarmManager AlarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
+
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+
+        AlarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
     private void WindowInsert(){
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -65,7 +99,7 @@ public class Settings_Page extends AppCompatActivity {
             return insets;
         });
     }
-    //Dropdown Menu Code for Currency
+
     private void Menu(){
         textInputLayout = findViewById(R.id.textInputLayout);
         autoCompleteTextView = findViewById(R.id.dropdown_menu);
