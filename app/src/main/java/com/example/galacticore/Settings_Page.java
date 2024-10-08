@@ -64,15 +64,12 @@ public class Settings_Page extends AppCompatActivity {
         });
 
         Switch reminderSwitch = findViewById(R.id.reminder_switch);
-        reminderSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    popupWindow.showAtLocation(buttonView, Gravity.CENTER, 0, 0);
-                }else{
-                    if(popupWindow.isShowing()){
+        reminderSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                popupWindow.showAtLocation(buttonView, Gravity.CENTER, 0, 0);
+            }else{
+                if(popupWindow.isShowing()){
                         popupWindow.dismiss();
-                    }
                 }
             }
         });
@@ -89,7 +86,7 @@ public class Settings_Page extends AppCompatActivity {
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
 
-        AlarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        AlarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
     private void WindowInsert(){

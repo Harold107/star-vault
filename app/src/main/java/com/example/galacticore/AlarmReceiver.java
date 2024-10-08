@@ -10,7 +10,9 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.wakeup_audio);
-        mediaPlayer.start();
+        if(mediaPlayer != null) {
+            mediaPlayer.start();
+        }
 
         Toast.makeText(context, "Alarm ringing!", Toast.LENGTH_SHORT).show();
     }
