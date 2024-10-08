@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
                     bottomNav.setVisibility(View.GONE);
                     binding.newTransactionBtn.setVisibility(View.GONE);
                 }
-                else if(destination.getId() == R.id.loginFragment){
-                    bottomNav.setVisibility(View.GONE);
-                    binding.newTransactionBtn.setVisibility(View.GONE);
-                }
+//                else if(destination.getId() == R.id.loginFragment){
+//                    bottomNav.setVisibility(View.GONE);
+//                    binding.newTransactionBtn.setVisibility(View.GONE);
+//                }
                 else {
                     bottomNav.setVisibility(View.VISIBLE);
                     binding.newTransactionBtn.setVisibility(View.VISIBLE);
