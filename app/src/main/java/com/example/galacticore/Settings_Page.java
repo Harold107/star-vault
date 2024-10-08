@@ -111,13 +111,5 @@ public class Settings_Page extends AppCompatActivity {
             Toast.makeText(Settings_Page.this, "Item: " + selectedItem, Toast.LENGTH_SHORT).show();
         });
     }
-    //Logout button code
-   /* private void Logout(@NonNull View view, Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
 
-            binding.logoutButton.setOnClickListener(v ->
-                    NavHostFragment.findNavController(Settings_Page.this)
-                            .navigate(R.id.action_to_settings_Page_SecondFragment_)
-            );
-    }*/
 }
