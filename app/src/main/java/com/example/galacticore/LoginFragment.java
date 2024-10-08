@@ -48,7 +48,7 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-
+//test
     // Method to check username and password
     private void checkLogin(View view) {
         String username = usernameInput.getText().toString();
