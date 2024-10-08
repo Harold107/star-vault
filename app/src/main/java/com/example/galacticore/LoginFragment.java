@@ -19,6 +19,7 @@ public class LoginFragment extends Fragment {
     private EditText usernameInput;
     private EditText passwordInput;
     private Button loginButton;
+    private Button registerButton;
 
     // Preset username and password for demonstration
     private String correctUsername = "admin";
@@ -34,12 +35,18 @@ public class LoginFragment extends Fragment {
         usernameInput = view.findViewById(R.id.username_input);
         passwordInput = view.findViewById(R.id.password_input);
         loginButton = view.findViewById(R.id.login_btn);
+        registerButton = view.findViewById(R.id.register_btn);
 
         // Set onClickListener for the login button
         loginButton.setOnClickListener(v -> checkLogin(view));
 
+
+        loginButton.setOnClickListener(v -> checkLogin(view));
+        registerButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registrationFragment));
+
         return view;
     }
+
 
     // Method to check username and password
     private void checkLogin(View view) {

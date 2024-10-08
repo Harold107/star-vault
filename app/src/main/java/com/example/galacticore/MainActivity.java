@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 import com.example.galacticore.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     public static AppDatabase db;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Hide bottom navigation on certain fragments
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-                if (destination.getId() == R.id.addTransactionFragment || destination.getId() == R.id.loginFragment) {
+                if (destination.getId() == R.id.addTransactionFragment || destination.getId() == R.id.loginFragment || destination.getId() == R.id.registrationFragment) {
                     bottomNav.setVisibility(View.GONE);
                     binding.newTransactionBtn.setVisibility(View.GONE);
                 }

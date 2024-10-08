@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/login_background"
                 android:gravity="center"
                 android:padding="16dp"
-                tools:context=".LoginFragment">
+                tools:context=".RegistrationFragment">
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -42,27 +41,27 @@
                   android:inputType="textPassword"
                   android:id="@+id/password_input"/>
 
-        <Button android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:backgroundTint="@color/black"
-                android:padding="18dp"
-                android:layout_marginTop="32dp"
-                android:textSize="20sp"
-                android:id="@+id/login_btn"/>
+        <EditText android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="16dp"
+                  android:hint="Confirm Password"
+                  android:textColor="@color/white"
+                  android:textColorHint="@color/white"
+                  android:textSize="20sp"
+                  android:background="@drawable/rounded_corner_box"
+                  android:padding="18dp"
+                  android:inputType="textPassword"
+                  android:id="@+id/confirm_password_input"/>
 
-        <Button
-                android:layout_width="match_parent"
+        <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:backgroundTint="@color/black"
                 android:padding="18dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:textSize="20sp"
                 android:id="@+id/register_btn"/>
 
     </LinearLayout>
-
-
 
 </RelativeLayout>
