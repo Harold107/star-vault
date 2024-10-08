@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Hide bottom navigation on certain fragments
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-                if (destination.getId() == R.id.addTransactionFragment) {
+                if (destination.getId() == R.id.addTransactionFragment || destination.getId() == R.id.loginFragment) {
                     bottomNav.setVisibility(View.GONE);
                     binding.newTransactionBtn.setVisibility(View.GONE);
                 }
