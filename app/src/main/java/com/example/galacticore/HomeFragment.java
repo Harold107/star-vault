@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -33,6 +36,11 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setupTransactionList();
         loadTransactions();
+
+        // Rocket animation
+        ImageView rocket = (ImageView) getView().findViewById(R.id.rocket_home);
+        Animation rocket_fly = AnimationUtils.loadAnimation(this.getContext(), R.anim.rocket_animation);
+        rocket.setAnimation(rocket_fly);
     }
 
     private void setupTransactionList() {
