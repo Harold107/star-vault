@@ -2,9 +2,10 @@ package com.example.galacticore;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import java.io.Serializable;
 
 @Entity(tableName = "transactions")
-public class Transaction {
+public class Transaction implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -72,17 +73,5 @@ public class Transaction {
 
     public void setIncome(boolean income) {
         isIncome = income;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", date='" + date + '\'' +
-                ", category='" + category + '\'' +
-                ", amount=" + amount +
-                ", note='" + note + '\'' +
-                ", isIncome=" + isIncome +
-                '}';
     }
 }
