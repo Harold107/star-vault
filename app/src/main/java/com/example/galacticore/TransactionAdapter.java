@@ -19,7 +19,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
     }
 
     int incomeGreen = Color.argb(255,21,180,1);
-    int expenseRed = Color.argb(255,255,0,0);
+    int expenseRed = Color.argb(255,170,20,20);
 
     @NonNull
     @Override

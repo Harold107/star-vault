@@ -91,7 +91,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="@string/select_category"
-                    android:textAppearance="?attr/textAppearanceSubtitle1" />
+                    android:textAppearance="?attr/textAppearanceSubtitle1"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
