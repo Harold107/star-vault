@@ -3,10 +3,10 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/homeFragment">
+            app:startDestination="@id/loginFragment">
 
     <fragment
-            android:id="@+id/homeFragment"
+            android:id="@+id/bnt_home"
             android:name="com.example.galacticore.HomeFragment"
             android:label="Home"
             tools:layout="@layout/fragment_home">
@@ -25,8 +25,8 @@
             tools:layout="@layout/fragment_add_transaction">
         <action
                 android:id="@+id/action_addTransactionFragment_to_homeFragment"
-                app:destination="@id/homeFragment"
-                app:popUpTo="@id/homeFragment"
+                app:destination="@id/bnt_home"
+                app:popUpTo="@id/bnt_home"
                 app:popUpToInclusive="true" />
     </fragment>
 
@@ -47,7 +47,7 @@
             tools:layout="@layout/fragment_login">
         <action
                 android:id="@+id/action_loginFragment_to_homeFragment"
-                app:destination="@id/homeFragment"
+                app:destination="@id/bnt_home"
                 app:popUpTo="@id/loginFragment"
                 app:popUpToInclusive="true" />
     </fragment>
