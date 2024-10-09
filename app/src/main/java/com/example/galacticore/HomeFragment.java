@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -41,6 +42,10 @@ public class HomeFragment extends Fragment {
         ImageView rocket = (ImageView) getView().findViewById(R.id.rocket_home);
         Animation rocket_fly = AnimationUtils.loadAnimation(this.getContext(), R.anim.rocket_animation);
         rocket.setAnimation(rocket_fly);
+        // current goal color
+        TextView goal = (TextView) getView().findViewById((R.id.textView_goalNumber));
+        setTextViewColor(goal, getResources().getColor(R.color.txt_lightPink),
+                getResources().getColor(R.color.txt_darkPink));
     }
 
     private void setupTransactionList() {
