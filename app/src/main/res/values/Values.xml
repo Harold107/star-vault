@@ -9,18 +9,19 @@
     <color name="bg_light">#663B8B</color>
     <color name="bg_dark">#221734</color>
 
-    // current goal
+<!--    current goal-->
     <color name="txt_lightPink">#FA8D93</color>
     <color name="txt_darkPink">#FC489C</color>
-    // home page backdrop
+<!--    home page backdrop-->
     <color name="backDropMain_darkGrey">#F0F0F0</color>
-    // navigation bar
+<!--    navigation bar-->
     <color name="navigationBar_grey">#D9D9D9</color>
     <color name="navigationIcon_pink">#C647BF</color>
-    // home page transaction
+<!--    home page transaction-->
     <color name="positive_color">#22A600</color>
     <color name="negative_color">#A60000</color>
 
+    <color name="logOut_red">#F45E5E</color>
 
     <color name="pink">#FF4081</color>
     <color name="light_grey">#DDDDDD</color>

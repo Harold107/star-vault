@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@drawable/home_background"
+             tools:context=".SettingFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:text="Setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="10dp"/>
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/backDropMain_darkGrey"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="65dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginTop="65dp"
+                        android:id="@+id/notification_block" app:layout_constraintHorizontal_bias="0.0">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <com.google.android.material.divider.MaterialDivider
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                app:dividerColor="@color/navigationBar_grey"
+                                app:layout_constraintTop_toBottomOf="@+id/notification_text"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="12dp"
+                                android:id="@+id/materialDivider"
+                                android:layout_marginStart="20dp" android:layout_marginEnd="20dp"/>
+                        <com.google.android.material.divider.MaterialDivider
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                app:dividerColor="@color/navigationBar_grey"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:id="@+id/materialDivider1"
+                                android:layout_marginStart="20dp" android:layout_marginEnd="20dp"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintTop_toBottomOf="@+id/reminder_text" android:layout_marginTop="20dp"/>
+                        <Switch
+                                android:text=""
+                                android:layout_width="52dp"
+                                android:layout_height="48dp" android:id="@+id/reminder_switch"
+                                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/materialDivider"
+                                android:layout_marginTop="8dp"/>
+                        <TextView
+                                android:text="Notification"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/notification_text"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_marginTop="10dp"
+                                app:layout_constraintHorizontal_bias="0.09"/>
+                        <TextView
+                                android:text="Reminder"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/reminder_text"
+                                android:textSize="18sp"
+                                app:layout_constraintTop_toBottomOf="@+id/materialDivider"
+                                app:layout_constraintStart_toStartOf="@+id/notification_text"
+                                android:layout_marginTop="20dp"/>
+                        <TextView
+                                android:text="Time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/time_text"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="@+id/reminder_text"
+                                app:layout_constraintTop_toBottomOf="@+id/materialDivider1"
+                                android:layout_marginTop="20dp"/>
+                        <TextView
+                                android:text="6:30pm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:id="@+id/time_display"
+                                android:textSize="18sp"
+                                app:layout_constraintEnd_toEndOf="@+id/reminder_switch"
+                                app:layout_constraintTop_toTopOf="@+id/time_text"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintTop_toBottomOf="@+id/notification_block"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginTop="40dp" android:id="@+id/setting_block">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <com.google.android.material.divider.MaterialDivider
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                app:dividerColor="@color/navigationBar_grey"
+                                android:id="@+id/materialDivider2"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp" app:layout_constraintTop_toBottomOf="@+id/account_text"
+                                android:layout_marginTop="20dp"/>
+                        <com.google.android.material.divider.MaterialDivider
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                app:dividerColor="@color/navigationBar_grey"
+                                android:id="@+id/materialDivider3"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintTop_toBottomOf="@+id/currency_text" android:layout_marginTop="20dp"/>
+                        <Spinner
+                                android:layout_width="110dp"
+                                android:layout_height="48dp"
+                                android:id="@+id/currency_spinner"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:layout_marginEnd="16dp"
+                                app:layout_constraintTop_toBottomOf="@+id/materialDivider2"
+                                android:layout_marginTop="10dp"/>
+                        <TextView
+                                android:text="Account"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/account_text"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_marginTop="10dp"
+                                app:layout_constraintHorizontal_bias="0.09"/>
+                        <TextView
+                                android:text="Currency"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/currency_text"
+                                android:textSize="18sp"
+                                app:layout_constraintTop_toBottomOf="@+id/materialDivider2"
+                                app:layout_constraintStart_toStartOf="@+id/account_text" android:layout_marginTop="20dp"/>
+                        <TextView
+                                android:text="Change \nPassword"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/password_text"
+                                android:textSize="18sp"
+                                app:layout_constraintTop_toBottomOf="@+id/materialDivider3"
+                                app:layout_constraintStart_toStartOf="@+id/currency_text"
+                                android:layout_marginTop="14dp"/>
+                        <TextView
+                                android:text="********"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/password_display"
+                                android:textSize="18sp"
+                                app:layout_constraintEnd_toEndOf="@+id/currency_spinner"
+                                app:layout_constraintTop_toBottomOf="@+id/materialDivider3"
+                                android:layout_marginTop="20dp"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="65dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="10dp"
+                        android:id="@+id/logout_block"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintTop_toBottomOf="@+id/setting_block"
+                        android:layout_marginTop="65dp">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/logOut_block">
+
+                        <TextView
+                                android:text="Log Out"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/logOut_text"
+                                android:textSize="28sp"
+                                android:textColor="@color/logOut_red"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
