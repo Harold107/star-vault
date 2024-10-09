@@ -1,6 +1,9 @@
 package com.example.galacticore;
 
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +49,15 @@ public class HomeFragment extends Fragment {
         TextView goal = (TextView) getView().findViewById((R.id.textView_goalNumber));
         setTextViewColor(goal, getResources().getColor(R.color.txt_lightPink),
                 getResources().getColor(R.color.txt_darkPink));
+    }
+
+    private void setTextViewColor(TextView textView, int...color) {
+        TextPaint paint = textView.getPaint();
+        float width = paint.measureText(textView.getText().toString());
+
+        Shader shader = new LinearGradient(0, 0, width, textView.getTextSize(), color, null, Shader.TileMode.CLAMP);
+        textView.getPaint().setShader(shader);
+        textView.setTextColor(color[0]);
     }
 
     private void setupTransactionList() {
