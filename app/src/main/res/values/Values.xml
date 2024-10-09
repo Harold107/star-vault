@@ -25,6 +25,7 @@
 
     <color name="pink">#FF4081</color>
     <color name="light_grey">#DDDDDD</color>
+    <color name="fake_boarder">#A9A9A9</color>
 
 
     <!-- Theme colors -->
