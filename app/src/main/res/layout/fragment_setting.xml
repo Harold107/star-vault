@@ -185,17 +185,20 @@
                                 android:id="@+id/password_display"
                                 android:textSize="18sp"
                                 app:layout_constraintTop_toBottomOf="@+id/materialDivider3"
-                                android:layout_marginTop="20dp" tools:layout_editor_absoluteX="274dp"/>
+                                android:layout_marginTop="20dp" app:layout_constraintEnd_toEndOf="@+id/current_goal_setting"/>
                         <EditText
                                 android:layout_width="168dp"
-                                android:layout_height="47dp"
+                                android:layout_height="48dp"
                                 android:inputType="number"
                                 android:ems="10"
-                                android:id="@+id/editTextNumber"
+                                android:text="1000"
+                                android:textSize="25sp"
+                                android:textAlignment="viewEnd"
+                                android:id="@+id/current_goal_setting"
                                 android:layout_marginEnd="16dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/materialDivider2"
-                                android:layout_marginTop="10dp"/>
+                                android:layout_marginTop="13dp"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
