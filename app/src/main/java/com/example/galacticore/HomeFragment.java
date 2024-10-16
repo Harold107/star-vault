@@ -1,5 +1,7 @@
 package com.example.galacticore;
 
+import android.animation.LayoutTransition;
+import android.animation.ObjectAnimator;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
@@ -11,9 +13,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.example.galacticore.databinding.FragmentHomeBinding;
@@ -141,16 +145,35 @@ public class HomeFragment extends Fragment {
         binding.textViewViewDate.setText(sdf.format(new Date()));
 
         // Update goal progress
-        double goalAmount = 1000.01; // Assuming the goal is $1,000.01
+        double goalAmount = 4000.00; // Assuming the goal is $1,000.01
         int progress = (int) ((totalIncome / goalAmount) * 100);
         binding.currentGoalBar.setProgress(Math.min(progress, 100));
         binding.textViewGoalNumber.setText(prettyNumber(goalAmount));
+
+        goalAnim();
     }
 
-    public String prettyNumber(double goal) {
+    private String prettyNumber(double goal) {
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
         return "$" + nf.format(goal);
     }
+
+    private void goalAnim() {
+        int progress = binding.currentGoalBar.getProgress();
+        CardView backdrop = (CardView) getView().findViewById(R.id.cardView_mainBackdrop);
+        ViewGroup.MarginLayoutParams  lp = (ViewGroup.MarginLayoutParams) backdrop.getLayoutParams();
+        if(progress == 100){
+            Toast.makeText(getActivity(), "Reach Goal", Toast.LENGTH_SHORT).show();
+            Animation moveDown = AnimationUtils.loadAnimation(this.getContext(), R.anim.move_down_animation);
+            backdrop.startAnimation(moveDown);
+//            lp.setMargins(0, 1000,0,0);
+        }
+        else{
+            lp.setMargins(0, 380,0,0);
+        }
+    }
+
+
 
     @Override
     public void onResume() {
