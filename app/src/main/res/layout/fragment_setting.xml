@@ -149,14 +149,6 @@
                                 android:layout_marginEnd="20dp"
                                 app:layout_constraintHorizontal_bias="0.0"
                                 app:layout_constraintTop_toBottomOf="@+id/currency_text" android:layout_marginTop="20dp"/>
-                        <Spinner
-                                android:layout_width="110dp"
-                                android:layout_height="48dp"
-                                android:id="@+id/currency_spinner"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                android:layout_marginEnd="16dp"
-                                app:layout_constraintTop_toBottomOf="@+id/materialDivider2"
-                                android:layout_marginTop="10dp"/>
                         <TextView
                                 android:text="Account"
                                 android:layout_width="wrap_content"
@@ -170,7 +162,7 @@
                                 android:layout_marginTop="10dp"
                                 app:layout_constraintHorizontal_bias="0.09"/>
                         <TextView
-                                android:text="Currency"
+                                android:text="Current Goal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/currency_text"
@@ -192,9 +184,18 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/password_display"
                                 android:textSize="18sp"
-                                app:layout_constraintEnd_toEndOf="@+id/currency_spinner"
                                 app:layout_constraintTop_toBottomOf="@+id/materialDivider3"
-                                android:layout_marginTop="20dp"/>
+                                android:layout_marginTop="20dp" tools:layout_editor_absoluteX="274dp"/>
+                        <EditText
+                                android:layout_width="168dp"
+                                android:layout_height="47dp"
+                                android:inputType="number"
+                                android:ems="10"
+                                android:id="@+id/editTextNumber"
+                                android:layout_marginEnd="16dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/materialDivider2"
+                                android:layout_marginTop="10dp"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
