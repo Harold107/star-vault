@@ -9,7 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 import com.example.galacticore.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
+
 
 public class MainActivity extends AppCompatActivity {
     public static AppDatabase db;
