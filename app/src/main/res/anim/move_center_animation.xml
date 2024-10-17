@@ -4,9 +4,9 @@
 
     <translate
             android:fromYDelta="0%p"
-            android:toYDelta="10%p"
+            android:toYDelta="20%p"
             android:fromXDelta="0%p"
-            android:toXDelta="-10%p"
+            android:toXDelta="-18%p"
             android:duration="2000"
     />
 
@@ -16,8 +16,8 @@
             android:fromYScale = "1"
             android:pivotX = "50%"
             android:pivotY = "50%"
-            android:toXScale = "2"
-            android:toYScale = "2"
+            android:toXScale = "1.8"
+            android:toYScale = "1.8"
         />
 
 </set>
