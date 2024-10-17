@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-        <item
-                android:id="@+id/bnt_home"
-                android:icon="@drawable/bnt_home"
-                android:title="@string/home" />
-        <!-- Add other menu items as needed -->
-
-    <item android:title="Setting"
+    <item
+            android:id="@+id/bnt_home"
+            android:icon="@drawable/bnt_home"
+            android:title="@string/home" />
+    <item
+            android:id="@+id/bnt_setting"
             android:icon="@drawable/bnt_setting"
-            android:id="@+id/bnt_setting"/>
+            android:title="@string/setting" />
 </menu>

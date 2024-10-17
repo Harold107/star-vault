@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialized Room database
+        // Initialize Room database
         db = Room.databaseBuilder(getApplicationContext(),
                         AppDatabase.class, "transaction-database")
                 .fallbackToDestructiveMigration()
@@ -40,16 +40,19 @@ public class MainActivity extends AppCompatActivity {
                     navController.navigate(R.id.action_homeFragment_to_addTransactionFragment)
             );
 
-            // Hide bottom navigation on certain fragments
-            navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-                if (destination.getId() == R.id.addTransactionFragment) {
-                    bottomNav.setVisibility(View.GONE);
-                    binding.newTransactionBtn.setVisibility(View.GONE);
+
+
+            // Set up bottom navigation item selection
+            bottomNav.setOnItemSelectedListener(item -> {
+                int itemId = item.getItemId();
+                if (itemId == R.id.bnt_home) {
+                    navController.navigate(R.id.bnt_home);
+                    return true;
+                } else if (itemId == R.id.bnt_setting) {
+                    navController.navigate(R.id.settingFragment);
+                    return true;
                 }
-                else {
-                    bottomNav.setVisibility(View.VISIBLE);
-                    binding.newTransactionBtn.setVisibility(View.VISIBLE);
-                }
+                return false;
             });
         }
     }
