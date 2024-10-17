@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -145,7 +146,7 @@ public class HomeFragment extends Fragment {
         binding.textViewViewDate.setText(sdf.format(new Date()));
 
         // Update goal progress
-        double goalAmount = 4000.00; // Assuming the goal is $1,000.01
+        double goalAmount = 9000.00; // Assuming the goal is $1,000.01
         int progress = (int) ((totalIncome / goalAmount) * 100);
         binding.currentGoalBar.setProgress(Math.min(progress, 100));
         binding.textViewGoalNumber.setText(prettyNumber(goalAmount));
@@ -161,15 +162,25 @@ public class HomeFragment extends Fragment {
     private void goalAnim() {
         int progress = binding.currentGoalBar.getProgress();
         CardView backdrop = (CardView) getView().findViewById(R.id.cardView_mainBackdrop);
-        ViewGroup.MarginLayoutParams  lp = (ViewGroup.MarginLayoutParams) backdrop.getLayoutParams();
+        ImageView rocket_fly = (ImageView) getView().findViewById(R.id.rocket_home);
+        ImageView moon = (ImageView) getView().findViewById(R.id.moon_home);
+        ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.current_goal_bar);
+
         if(progress == 100){
             Toast.makeText(getActivity(), "Reach Goal", Toast.LENGTH_SHORT).show();
+            //backdrop move down
             Animation moveDown = AnimationUtils.loadAnimation(this.getContext(), R.anim.move_down_animation);
             backdrop.startAnimation(moveDown);
-//            lp.setMargins(0, 1000,0,0);
+            //fade out
+            Animation fadeOut = AnimationUtils.loadAnimation(this.getContext(), R.anim.fade_out_animation);
+            progressBar.startAnimation(fadeOut);
+            rocket_fly.startAnimation(fadeOut);
+            //moon move center
+            Animation moveCenter = AnimationUtils.loadAnimation(this.getContext(), R.anim.move_center_animation);
+            moon.startAnimation(moveCenter);
         }
         else{
-            lp.setMargins(0, 380,0,0);
+
         }
     }
 
