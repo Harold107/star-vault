@@ -25,6 +25,7 @@ public class AddTransactionFragment extends Fragment {
     private boolean isIncome = true;
     private final String[] incomeCategories = {"Salary", "Investments", "Gifts", "Other"};
     private final String[] expenseCategories = {"Food", "Transport", "Entertainment", "Bills", "Other"};
+    private Transaction existingTransaction;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,11 +37,29 @@ public class AddTransactionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Check if we're editing an existing transaction
+        if (getArguments() != null && getArguments().containsKey("transaction")) {
+            existingTransaction = (Transaction) getArguments().getSerializable("transaction");
+            populateFieldsWithExistingTransaction();
+        }
+
         setupToggleGroup();
         setupDatePicker();
         setupCategorySelection();
         setupSaveButton();
         setupCalculator();
+    }
+
+    private void populateFieldsWithExistingTransaction() {
+        if (existingTransaction != null) {
+            binding.editTextDate.setText(existingTransaction.getDate());
+            binding.buttonCategory.setText(existingTransaction.getCategory());
+            binding.editTextAmount.setText(String.valueOf(existingTransaction.getAmount()));
+            binding.editTextNote.setText(existingTransaction.getNote());
+            isIncome = existingTransaction.isIncome();
+            binding.toggleGroup.check(isIncome ? R.id.btnIncome : R.id.btnExpense);
+            binding.textViewTitle.setText(R.string.edit_transaction);
+        }
     }
 
     private void setupToggleGroup() {
@@ -70,7 +89,7 @@ public class AddTransactionFragment extends Fragment {
     }
 
     private void setupCategorySelection() {
-        binding.textViewCategory.setOnClickListener(v -> showCategoryDialog());
+        binding.buttonCategory.setOnClickListener(v -> showCategoryDialog());
         updateCategorySelection();
     }
 
@@ -78,12 +97,12 @@ public class AddTransactionFragment extends Fragment {
         String[] categories = isIncome ? incomeCategories : expenseCategories;
         new AlertDialog.Builder(requireContext())
                 .setTitle("Select Category")
-                .setItems(categories, (dialog, which) -> binding.textViewCategory.setText(categories[which]))
+                .setItems(categories, (dialog, which) -> binding.buttonCategory.setText(categories[which]))
                 .show();
     }
 
     private void updateCategorySelection() {
-        binding.textViewCategory.setText(R.string.select_category);
+        binding.buttonCategory.setText(R.string.select_category);
     }
 
     private void setupSaveButton() {
@@ -92,7 +111,7 @@ public class AddTransactionFragment extends Fragment {
 
     private void saveTransaction() {
         String date = binding.editTextDate.getText().toString();
-        String category = binding.textViewCategory.getText().toString();
+        String category = binding.buttonCategory.getText().toString();
         String amountStr = binding.editTextAmount.getText().toString();
         String note = binding.editTextNote.getText().toString();
 
@@ -109,10 +128,20 @@ public class AddTransactionFragment extends Fragment {
             return;
         }
 
-        Transaction transaction = new Transaction(date, category, amount, note, isIncome);
-
         new Thread(() -> {
-            MainActivity.db.transactionDao().insert(transaction);
+            if (existingTransaction != null) {
+                // Update the existing transaction
+                existingTransaction.setDate(date);
+                existingTransaction.setCategory(category);
+                existingTransaction.setAmount(amount);
+                existingTransaction.setNote(note);
+                existingTransaction.setIncome(isIncome);
+                MainActivity.db.transactionDao().update(existingTransaction);
+            } else {
+                // Create a new transaction
+                Transaction newTransaction = new Transaction(date, category, amount, note, isIncome);
+                MainActivity.db.transactionDao().insert(newTransaction);
+            }
             requireActivity().runOnUiThread(() -> {
                 Toast.makeText(getContext(), R.string.transaction_saved, Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(requireView()).navigate(R.id.action_addTransactionFragment_to_homeFragment);
@@ -144,7 +173,7 @@ public class AddTransactionFragment extends Fragment {
             }
         };
 
-        // Attached the listener to all calculator buttons
+        // Attach the listener to all calculator buttons
         binding.button0.setOnClickListener(calculatorClickListener);
         binding.button1.setOnClickListener(calculatorClickListener);
         binding.button2.setOnClickListener(calculatorClickListener);

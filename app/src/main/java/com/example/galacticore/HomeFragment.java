@@ -1,7 +1,6 @@
 package com.example.galacticore;
 
-import android.animation.LayoutTransition;
-import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
@@ -22,6 +21,8 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.example.galacticore.databinding.FragmentHomeBinding;
+import com.example.galacticore.databinding.DialogTransactionOptionsBinding;
+
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,11 +48,11 @@ public class HomeFragment extends Fragment {
         loadTransactions();
 
         // Rocket animation
-        ImageView rocket = (ImageView) getView().findViewById(R.id.rocket_home);
+        ImageView rocket = getView().findViewById(R.id.rocket_home);
         Animation rocket_fly = AnimationUtils.loadAnimation(this.getContext(), R.anim.rocket_animation);
         rocket.setAnimation(rocket_fly);
         // current goal color
-        TextView goal = (TextView) getView().findViewById((R.id.textView_goalNumber));
+        TextView goal = getView().findViewById(R.id.textView_goalNumber);
         setTextViewColor(goal, getResources().getColor(R.color.txt_lightPink),
                 getResources().getColor(R.color.txt_darkPink));
     }
@@ -75,23 +76,26 @@ public class HomeFragment extends Fragment {
     }
 
     private void showTransactionOptions(Transaction transaction) {
-        String[] options = {"View Details", "Modify", "Delete"};
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Transaction Options")
-                .setItems(options, (dialog, which) -> {
-                    switch (which) {
-                        case 0: // View Details
-                            navigateToTransactionDetail(transaction);
-                            break;
-                        case 1: // Modify
-                            navigateToModifyTransaction(transaction);
-                            break;
-                        case 2: // Delete
-                            deleteTransaction(transaction);
-                            break;
-                    }
-                })
-                .show();
+        Dialog dialog = new Dialog(requireContext());
+        DialogTransactionOptionsBinding dialogBinding = DialogTransactionOptionsBinding.inflate(getLayoutInflater());
+        dialog.setContentView(dialogBinding.getRoot());
+
+        dialogBinding.viewDetailsButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            navigateToTransactionDetail(transaction);
+        });
+
+        dialogBinding.modifyButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            navigateToModifyTransaction(transaction);
+        });
+
+        dialogBinding.deleteButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            deleteTransaction(transaction);
+        });
+
+        dialog.show();
     }
 
     private void navigateToTransactionDetail(Transaction transaction) {
@@ -146,7 +150,7 @@ public class HomeFragment extends Fragment {
         binding.textViewViewDate.setText(sdf.format(new Date()));
 
         // Update goal progress
-        double goalAmount = 9000.00; // Assuming the goal is $1,000.01
+        double goalAmount = 9000.00;
         int progress = (int) ((totalIncome / goalAmount) * 100);
         binding.currentGoalBar.setProgress(Math.min(progress, 100));
         binding.textViewGoalNumber.setText(prettyNumber(goalAmount));
@@ -161,10 +165,10 @@ public class HomeFragment extends Fragment {
 
     private void goalAnim() {
         int progress = binding.currentGoalBar.getProgress();
-        CardView backdrop = (CardView) getView().findViewById(R.id.cardView_mainBackdrop);
-        ImageView rocket_fly = (ImageView) getView().findViewById(R.id.rocket_home);
-        ImageView moon = (ImageView) getView().findViewById(R.id.moon_home);
-        ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.current_goal_bar);
+        CardView backdrop = getView().findViewById(R.id.cardView_mainBackdrop);
+        ImageView rocket_fly = getView().findViewById(R.id.rocket_home);
+        ImageView moon = getView().findViewById(R.id.moon_home);
+        ProgressBar progressBar = getView().findViewById(R.id.current_goal_bar);
 
         if(progress == 100){
             Toast.makeText(getActivity(), "Reach Goal", Toast.LENGTH_SHORT).show();
@@ -179,12 +183,7 @@ public class HomeFragment extends Fragment {
             Animation moveCenter = AnimationUtils.loadAnimation(this.getContext(), R.anim.move_center_animation);
             moon.startAnimation(moveCenter);
         }
-        else{
-
-        }
     }
-
-
 
     @Override
     public void onResume() {

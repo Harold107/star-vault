@@ -59,7 +59,7 @@
     <string name="transaction_saved">Transaction saved successfully</string>
     <string name="add_transaction_fragment_label">Add Transaction</string>
     <string name="add_transaction">add trans\n</string>
-
+    <string name="edit_transaction">Edit Transaction</string>
     <string name="category_content_description">Select or enter a transaction category</string>
     <string name="home_fragment_label">home_fragment\n</string>
     <string name="add_new_transaction">add_new_trans\n</string>
