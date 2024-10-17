@@ -1,16 +1,38 @@
 [versions]
 agp = "8.6.0-alpha07"
+fragment = "1.8.4"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 constraintlayout = "2.1.4"
-navigationFragment = "2.8.0"
-navigationUi = "2.8.0"
-activity = "1.8.0"
+navigationFragment = "2.8.2"
+navigationUi = "2.8.2"
+annotation = "1.8.2"
+lifecycleLivedataKtx = "2.8.6"
+lifecycleViewmodelKtx = "2.8.6"
+room = "2.6.1"
+gridlayout = "1.0.0"
+supportAnnotations = "28.0.0"
+annotationVersion = "1.8.2"
+supportV4 = "28.0.0"
+legacySupportV4 = "1.0.0"
+supportV13 = "28.0.0"
+legacySupportV13 = "1.0.0"
+appcompatV7 = "28.0.0"
+supportVectorDrawable = "28.0.0"
+vectordrawable = "1.2.0"
+design = "28.0.0"
+gridlayoutV7 = "28.0.0"
+mediarouterV7 = "28.0.0"
+mediarouter = "1.7.0"
+cardviewV7 = "28.0.0"
+cardview = "1.0.0"
+paletteV7 = "28.0.0"
 
 [libraries]
+fragment = { module = "androidx.fragment:fragment", version.ref = "fragment" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -19,8 +41,29 @@ material = { group = "com.google.android.material", name = "material", version.r
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
-
+annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
+support-annotations = { group = "com.android.support", name = "support-annotations", version.ref = "supportAnnotations" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotationVersion" }
+support-v4 = { group = "com.android.support", name = "support-v4", version.ref = "supportV4" }
+androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
+support-v13 = { group = "com.android.support", name = "support-v13", version.ref = "supportV13" }
+androidx-legacy-support-v13 = { group = "androidx.legacy", name = "legacy-support-v13", version.ref = "legacySupportV13" }
+appcompat-v7 = { group = "com.android.support", name = "appcompat-v7", version.ref = "appcompatV7" }
+support-vector-drawable = { group = "com.android.support", name = "support-vector-drawable", version.ref = "supportVectorDrawable" }
+androidx-vectordrawable = { group = "androidx.vectordrawable", name = "vectordrawable", version.ref = "vectordrawable" }
+design = { group = "com.android.support", name = "design", version.ref = "design" }
+gridlayout-v7 = { group = "com.android.support", name = "gridlayout-v7", version.ref = "gridlayoutV7" }
+mediarouter-v7 = { group = "com.android.support", name = "mediarouter-v7", version.ref = "mediarouterV7" }
+androidx-mediarouter = { group = "androidx.mediarouter", name = "mediarouter", version.ref = "mediarouter" }
+cardview-v7 = { group = "com.android.support", name = "cardview-v7", version.ref = "cardviewV7" }
+androidx-cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
+palette-v7 = { group = "com.android.support", name = "palette-v7", version.ref = "paletteV7" }
+exp4j = { module = "net.objecthunter:exp4j", version = "0.4.8" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 
