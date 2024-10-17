@@ -54,7 +54,7 @@
                 android:name="transaction"
                 app:argType="com.example.galacticore.Transaction" />
     </fragment>
-
+//
     <fragment
             android:id="@+id/settingFragment"
             android:name="com.example.galacticore.SettingFragment"
