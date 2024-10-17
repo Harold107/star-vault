@@ -9,10 +9,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/popup"
-            android:layout_marginStart="@dimen/ten"
-            android:layout_marginEnd="@dimen/ten"
-            android:layout_marginTop="@dimen/ten"
-            android:layout_marginBottom="@dimen/ten">
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
