@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             BottomNavigationView bottomNav = binding.bottomNavigationView;
             NavigationUI.setupWithNavController(bottomNav, navController);
 
+
             // Set up the FAB for adding new transactions
             binding.newTransactionBtn.setOnClickListener(v ->
                     navController.navigate(R.id.action_homeFragment_to_addTransactionFragment)
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
                 if (destination.getId() == R.id.addTransactionFragment || destination.getId() == R.id.loginFragment || destination.getId() == R.id.registrationFragment) {
                     bottomNav.setVisibility(View.GONE);
+                    binding.newTransactionBtn.setVisibility(View.GONE);
+                }
+                else if(destination.getId() == R.id.settingFragment){
                     binding.newTransactionBtn.setVisibility(View.GONE);
                 }
                 else {

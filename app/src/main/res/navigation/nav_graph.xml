@@ -16,6 +16,7 @@
         <action
                 android:id="@+id/action_homeFragment_to_transactionDetailFragment"
                 app:destination="@id/transactionDetailFragment" />
+        <action android:id="@+id/action_bnt_home_to_settingFragment" app:destination="@id/settingFragment"/>
     </fragment>
 
     <fragment
@@ -56,6 +57,10 @@
     <fragment android:id="@+id/registrationFragment" android:name="com.example.galacticore.RegistrationFragment"
               android:label="fragment_registration" tools:layout="@layout/fragment_registration">
         <action android:id="@+id/action_registrationFragment_to_loginFragment" app:destination="@id/loginFragment"/>
+    </fragment>
+    <fragment android:id="@+id/settingFragment" android:name="com.example.galacticore.SettingFragment"
+              android:label="fragment_setting" tools:layout="@layout/fragment_setting">
+        <action android:id="@+id/action_settingFragment_to_bnt_home" app:destination="@id/bnt_home"/>
     </fragment>
 
 </navigation>
