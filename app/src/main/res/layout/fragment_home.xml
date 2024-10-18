@@ -103,6 +103,76 @@
                 android:layout_marginTop="216dp"
                 android:layout_marginStart="356dp" android:rotation="17"/>
         <ImageView
+                android:src="@drawable/star"
+                android:id="@+id/star10_home"
+                android:alpha="0.2"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="252dp"
+                android:layout_marginStart="16dp" android:rotation="57"/>
+        <ImageView
+                android:src="@drawable/star"
+                android:id="@+id/star11_home"
+                android:alpha="0.6"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="484dp"
+                android:layout_marginStart="336dp" android:rotation="87"/>
+        <ImageView
+                android:src="@drawable/star"
+                android:id="@+id/star12_home"
+                android:alpha="0.2"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="584dp"
+                android:layout_marginStart="244dp" android:rotation="57"/>
+        <ImageView
+                android:src="@drawable/star"
+                android:id="@+id/star13_home"
+                android:alpha="0.4"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="332dp"
+                android:layout_marginStart="392dp" android:rotation="7"/>
+        <ImageView
+                android:src="@drawable/star"
+                android:id="@+id/star14_home"
+                android:alpha="0.6"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="532dp"
+                android:layout_marginStart="20dp" android:rotation="37"/>
+        <ImageView
+                android:src="@drawable/star"
+                android:id="@+id/star15_home"
+                android:alpha="0.1"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="608dp"
+                android:layout_marginStart="372dp" android:rotation="47"/>
+        <ImageView
+                android:src="@drawable/star"
+                android:id="@+id/star16_home"
+                android:alpha="0.4"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="580dp"
+                android:layout_marginStart="312dp" android:rotation="97"/>
+        <ImageView
                 android:src="@drawable/moon_icon"
                 android:layout_width="174dp"
                 android:layout_height="215dp"
@@ -113,6 +183,30 @@
                 android:layout_marginTop="-20dp"/>
 
         <!-- Goal Progress Bar -->
+        <TextView
+                android:text="Congratulations\nYou've reached the moon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:alpha="0"
+                android:textSize="34sp"
+                android:id="@+id/congrats_text"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="90dp" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        <ImageView
+                android:src="@drawable/rocket_rest"
+                android:layout_width="42dp"
+                android:layout_height="100dp"
+                android:id="@+id/rocket_rest"
+                android:alpha="1"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="84dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="180dp"
+                android:rotation="-35"/>
         <ImageView
                 android:src="@drawable/rocket_fly_icon"
                 android:layout_width="42dp"

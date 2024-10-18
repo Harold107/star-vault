@@ -22,6 +22,8 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import com.example.galacticore.databinding.FragmentHomeBinding;
+import org.w3c.dom.Text;
+
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,7 +54,10 @@ public class HomeFragment extends Fragment {
         rocket.setAnimation(rocket_fly);
         // current goal color
         TextView goal = (TextView) getView().findViewById((R.id.textView_goalNumber));
+        TextView congrats = (TextView) getView().findViewById(R.id.congrats_text);
         setTextViewColor(goal, getResources().getColor(R.color.txt_lightPink),
+                getResources().getColor(R.color.txt_darkPink));
+        setTextViewColor(congrats, getResources().getColor(R.color.txt_lightPink),
                 getResources().getColor(R.color.txt_darkPink));
     }
 
@@ -146,7 +151,7 @@ public class HomeFragment extends Fragment {
         binding.textViewViewDate.setText(sdf.format(new Date()));
 
         // Update goal progress
-        double goalAmount = 9006.00; // Assuming the goal is $1,000.01
+        double goalAmount = 9009.00; // Assuming the goal is $1,000.01
         int progress = (int) ((totalIncome / goalAmount) * 100);
         binding.currentGoalBar.setProgress(Math.min(progress, 100));
         binding.textViewGoalNumber.setText(prettyNumber(goalAmount));
@@ -165,9 +170,11 @@ public class HomeFragment extends Fragment {
         ImageView rocket_fly = (ImageView) getView().findViewById(R.id.rocket_home);
         ImageView moon = (ImageView) getView().findViewById(R.id.moon_home);
         ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.current_goal_bar);
+        ImageView rocket_rest = (ImageView) getView().findViewById(R.id.rocket_rest);
+        TextView congrats = (TextView) getView().findViewById(R.id.congrats_text);
 
         if(progress == 100){
-            Toast.makeText(getActivity(), "Reach Goal", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Reach Goal", Toast.LENGTH_SHORT).show();
             //backdrop move down
             Animation moveDown = AnimationUtils.loadAnimation(this.getContext(), R.anim.move_down_animation);
             backdrop.startAnimation(moveDown);
@@ -178,6 +185,11 @@ public class HomeFragment extends Fragment {
             //moon move center
             Animation moveCenter = AnimationUtils.loadAnimation(this.getContext(), R.anim.move_center_animation);
             moon.startAnimation(moveCenter);
+            //fade in
+            Animation fadeIn = AnimationUtils.loadAnimation(this.getContext(), R.anim.fade_in_animation);
+            rocket_rest.startAnimation(fadeIn);
+            congrats.setAlpha(1);
+            congrats.startAnimation(fadeIn);
         }
         else{
 

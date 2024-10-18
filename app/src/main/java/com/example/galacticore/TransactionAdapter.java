@@ -18,7 +18,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         super(context, R.layout.item_transaction, transactions);
     }
 
-    int incomeGreen = Color.argb(255,21,180,1);
+    int incomeGreen = Color.argb(255,21,150,1);
     int expenseRed = Color.argb(255,170,20,20);
 
     @NonNull
