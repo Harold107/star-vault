@@ -10,7 +10,6 @@ import androidx.room.Room;
 import com.example.galacticore.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
 public class MainActivity extends AppCompatActivity {
     public static AppDatabase db;
     private ActivityMainBinding binding;
@@ -36,25 +35,24 @@ public class MainActivity extends AppCompatActivity {
             BottomNavigationView bottomNav = binding.bottomNavigationView;
             NavigationUI.setupWithNavController(bottomNav, navController);
 
-
             // Set up the FAB for adding new transactions
             binding.newTransactionBtn.setOnClickListener(v ->
                     navController.navigate(R.id.action_homeFragment_to_addTransactionFragment)
             );
 
-            // Hide bottom navigation on certain fragments
-            navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-                if (destination.getId() == R.id.addTransactionFragment || destination.getId() == R.id.loginFragment || destination.getId() == R.id.registrationFragment) {
-                    bottomNav.setVisibility(View.GONE);
-                    binding.newTransactionBtn.setVisibility(View.GONE);
+
+
+            // Set up bottom navigation item selection
+            bottomNav.setOnItemSelectedListener(item -> {
+                int itemId = item.getItemId();
+                if (itemId == R.id.bnt_home) {
+                    navController.navigate(R.id.bnt_home);
+                    return true;
+                } else if (itemId == R.id.bnt_setting) {
+                    navController.navigate(R.id.settingFragment);
+                    return true;
                 }
-                else if(destination.getId() == R.id.settingFragment){
-                    binding.newTransactionBtn.setVisibility(View.GONE);
-                }
-                else {
-                    bottomNav.setVisibility(View.VISIBLE);
-                    binding.newTransactionBtn.setVisibility(View.VISIBLE);
-                }
+                return false;
             });
         }
     }
