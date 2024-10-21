@@ -10,10 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -155,7 +152,7 @@ public class HomeFragment extends Fragment {
         binding.textViewViewDate.setText(sdf.format(new Date()));
 
         // Update goal progress
-        double goalAmount = 19001.00; // Assuming the goal is $1,000.01
+        double goalAmount = 40003.00; // Assuming the goal is $1,000.01
         int progress = (int) ((totalIncome / goalAmount) * 100);
         binding.currentGoalBar.setProgress(Math.min(progress, 100));
         binding.textViewGoalNumber.setText(prettyNumber(goalAmount));
@@ -176,6 +173,10 @@ public class HomeFragment extends Fragment {
         ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.current_goal_bar);
         ImageView rocket_rest = (ImageView) getView().findViewById(R.id.rocket_rest);
         TextView congrats = (TextView) getView().findViewById(R.id.congrats_text);
+        CardView resetDialog = (CardView) getView().findViewById(R.id.warning_dialog);
+        TextView resetGoal = (TextView) getView().findViewById(R.id.reset_goal);
+        EditText resetNumber = (EditText) getView().findViewById(R.id.reset_number);
+        Button resetConfirm = (Button) getView().findViewById(R.id.reset_confirm);
 
         if(progress == 100){
             //Toast.makeText(getActivity(), "Reach Goal", Toast.LENGTH_SHORT).show();
@@ -191,9 +192,18 @@ public class HomeFragment extends Fragment {
             moon.startAnimation(moveCenter);
             //fade in
             Animation fadeIn = AnimationUtils.loadAnimation(this.getContext(), R.anim.fade_in_animation);
-            rocket_rest.startAnimation(fadeIn);
+            //rocket_rest.setAlpha(1);
             congrats.setAlpha(1);
+            resetDialog.setAlpha(1);
+            resetGoal.setAlpha(1);
+            resetNumber.setAlpha(1);
+            resetConfirm.setAlpha(1);
             congrats.startAnimation(fadeIn);
+            rocket_rest.startAnimation(fadeIn);
+            resetDialog.startAnimation(fadeIn);
+            resetGoal.startAnimation(fadeIn);
+            resetNumber.startAnimation(fadeIn);
+            resetConfirm.startAnimation(fadeIn);
         }
         else{
 
