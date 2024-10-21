@@ -22,7 +22,7 @@ public class LoginFragment extends Fragment {
     private Button loginButton;
     private Button registerButton;
 
-    // Preset username and password for demonstration
+    // Preset username and password for test
     //private String correctUsername = "admin";
     //private String correctPassword = "12345";
 

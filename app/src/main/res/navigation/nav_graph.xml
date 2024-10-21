@@ -63,4 +63,12 @@
         <action android:id="@+id/action_settingFragment_to_bnt_home" app:destination="@id/bnt_home"/>
     </fragment>
 
+
+
+    <fragment
+            android:id="@+id/gameFragment"
+            android:name="com.example.galacticore.GameFragment"
+            android:label="Game"
+            tools:layout="@layout/fragment_game" />
+
 </navigation>
