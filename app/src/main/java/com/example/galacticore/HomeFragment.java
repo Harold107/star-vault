@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment {
         binding.textViewViewDate.setText(sdf.format(new Date()));
 
         // Update goal progress
-        double goalAmount = 40003.00; // Assuming the goal is $1,000.01
+        double goalAmount = 40005.00; // Assuming the goal is $1,000.01
         int progress = (int) ((totalIncome / goalAmount) * 100);
         binding.currentGoalBar.setProgress(Math.min(progress, 100));
         binding.textViewGoalNumber.setText(prettyNumber(goalAmount));
