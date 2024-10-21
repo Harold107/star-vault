@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
                     navController.navigate(R.id.action_homeFragment_to_addTransactionFragment)
             );
 
-
-
             // Set up bottom navigation item selection
             bottomNav.setOnItemSelectedListener(item -> {
                 int itemId = item.getItemId();
