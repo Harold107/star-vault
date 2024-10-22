@@ -14,7 +14,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             mediaPlayer.start();
         }
 
-        Toast.makeText(context, "Alarm ringing!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Alarm is ringing!", Toast.LENGTH_SHORT).show();
     }
 
 }
