@@ -1,5 +1,9 @@
 package com.example.galacticore;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -51,7 +55,7 @@ public class GameFragment extends Fragment {
                     fuel--;
                     fuelBar.setProgress(fuel);
 
-                    // update rocket position based on fuel or score
+                    // rocket position based on fuel score
                     score++;
                     scoreView.setText("SCORE: " + score);
 
@@ -70,7 +74,7 @@ public class GameFragment extends Fragment {
         // investing decrease fuel for risk but possible bonus fuel
         if (fuel >= 20) {
             fuel -= 20;
-            int reward = (int) (Math.random() * 50);  // Random reward
+            int reward = (int) (Math.random() * 50);  // random reward
             fuel += reward;
         }
     }
@@ -81,6 +85,28 @@ public class GameFragment extends Fragment {
     }
 
     private void gameOver() {
-        // need to put this in later
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Game Over");
+        builder.setMessage("Your final score is: " + score + "\n\n" +
+                "If you would like to learn more about saving and investing, click here.");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNeutralButton("Learn More", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.investopedia.com/articles/investing/022516/saving-vs-investing-understanding-key-differences.asp"));
+                startActivity(browserIntent);
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
