@@ -1,26 +1,22 @@
 package com.example.galacticore;
 
 import android.app.Dialog;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.*;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import com.example.galacticore.databinding.FragmentHomeBinding;
 import com.example.galacticore.databinding.DialogTransactionOptionsBinding;
-
-import org.w3c.dom.Text;
+import com.example.galacticore.databinding.FragmentHomeBinding;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -32,7 +28,11 @@ import java.util.Locale;
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private TransactionAdapter adapter;
-    private List<Transaction> transactions = new ArrayList<>();
+    private final List<Transaction> transactions = new ArrayList<>();
+    private boolean isAnimationInProgress = false;
+    private double currentGoal = 40006.00;
+    private static final String PREFS_NAME = "GoalPrefs";
+    private static final String KEY_CURRENT_GOAL = "current_goal";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,29 +43,29 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadSavedGoal();
+        setupUI();
         setupTransactionList();
         loadTransactions();
-
-        // Rocket animation
-        ImageView rocket = getView().findViewById(R.id.rocket_home);
-        Animation rocket_fly = AnimationUtils.loadAnimation(this.getContext(), R.anim.rocket_animation);
-        rocket.setAnimation(rocket_fly);
-        // current goal color
-        TextView goal = (TextView) getView().findViewById((R.id.textView_goalNumber));
-        TextView congrats = (TextView) getView().findViewById(R.id.congrats_text);
-        setTextViewColor(goal, getResources().getColor(R.color.txt_lightPink),
-                getResources().getColor(R.color.txt_darkPink));
-        setTextViewColor(congrats, getResources().getColor(R.color.txt_lightPink),
-                getResources().getColor(R.color.txt_darkPink));
     }
 
-    private void setTextViewColor(TextView textView, int...color) {
-        TextPaint paint = textView.getPaint();
-        float width = paint.measureText(textView.getText().toString());
+    private void loadSavedGoal() {
+        SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        currentGoal = prefs.getFloat(KEY_CURRENT_GOAL, (float) currentGoal);
+    }
 
-        Shader shader = new LinearGradient(0, 0, width, textView.getTextSize(), color, null, Shader.TileMode.CLAMP);
-        textView.getPaint().setShader(shader);
-        textView.setTextColor(color[0]);
+    private void setupUI() {
+        // Initial setup
+        binding.warningDialog.setVisibility(View.GONE);
+        binding.congratsText.setAlpha(0f);
+        binding.rocketRest.setAlpha(0f);
+
+        // Setup rocket animation
+        Animation rocketFly = AnimationUtils.loadAnimation(requireContext(), R.anim.rocket_animation);
+        binding.rocketHome.startAnimation(rocketFly);
+
+        // Setup reset goal button
+        binding.resetConfirm.setOnClickListener(v -> handleGoalReset());
     }
 
     private void setupTransactionList() {
@@ -77,62 +77,12 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void showTransactionOptions(Transaction transaction) {
-        Dialog dialog = new Dialog(requireContext());
-        DialogTransactionOptionsBinding dialogBinding = DialogTransactionOptionsBinding.inflate(getLayoutInflater());
-        dialog.setContentView(dialogBinding.getRoot());
-
-        dialogBinding.viewDetailsButton.setOnClickListener(v -> {
-            dialog.dismiss();
-            navigateToTransactionDetail(transaction);
-        });
-
-        dialogBinding.modifyButton.setOnClickListener(v -> {
-            dialog.dismiss();
-            navigateToModifyTransaction(transaction);
-        });
-
-        dialogBinding.deleteButton.setOnClickListener(v -> {
-            dialog.dismiss();
-            deleteTransaction(transaction);
-        });
-
-        dialog.show();
-    }
-
-    private void navigateToTransactionDetail(Transaction transaction) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("transaction", transaction);
-        Navigation.findNavController(requireView())
-                .navigate(R.id.action_homeFragment_to_transactionDetailFragment, bundle);
-    }
-
-    private void navigateToModifyTransaction(Transaction transaction) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("transaction", transaction);
-        Navigation.findNavController(requireView())
-                .navigate(R.id.action_homeFragment_to_addTransactionFragment, bundle);
-    }
-
-    private void deleteTransaction(Transaction transaction) {
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Delete Transaction")
-                .setMessage("Are you sure you want to delete this transaction?")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    new Thread(() -> {
-                        MainActivity.db.transactionDao().delete(transaction);
-                        requireActivity().runOnUiThread(this::loadTransactions);
-                    }).start();
-                })
-                .setNegativeButton("No", null)
-                .show();
-    }
-
     private void loadTransactions() {
         new Thread(() -> {
             List<Transaction> loadedTransactions = MainActivity.db.transactionDao().getRecentTransactions();
             double totalIncome = MainActivity.db.transactionDao().getTotalIncome();
             double totalExpenses = MainActivity.db.transactionDao().getTotalExpenses();
+
             requireActivity().runOnUiThread(() -> {
                 transactions.clear();
                 transactions.addAll(loadedTransactions);
@@ -143,79 +93,149 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateUI(double totalIncome, double totalExpenses) {
-        binding.textViewMonthlyIncomeNumber.setText(String.format(Locale.getDefault(), "$%.2f", totalIncome));
-        binding.textViewMonthlyExpensesNumber.setText(String.format(Locale.getDefault(), "$%.2f", totalExpenses));
-        double balance = totalIncome - totalExpenses;
-        binding.textViewMonthlyBalanceNumber.setText(String.format(Locale.getDefault(), "$%.2f", balance));
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        binding.textViewMonthlyIncomeNumber.setText(currencyFormat.format(totalIncome));
+        binding.textViewMonthlyExpensesNumber.setText(currencyFormat.format(totalExpenses));
+        binding.textViewMonthlyBalanceNumber.setText(currencyFormat.format(totalIncome - totalExpenses));
+        binding.textViewGoalNumber.setText(currencyFormat.format(currentGoal));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
-        binding.textViewViewDate.setText(sdf.format(new Date()));
+        // Update date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
+        binding.textViewViewDate.setText(dateFormat.format(new Date()));
 
-        // Update goal progress
-        double goalAmount = 40006.00; // Assuming the goal is $1,000.01
-        int progress = (int) ((totalIncome / goalAmount) * 100);
+        // Update progress
+        int progress = (int) ((totalIncome / currentGoal) * 100);
         binding.currentGoalBar.setProgress(Math.min(progress, 100));
-        binding.textViewGoalNumber.setText(prettyNumber(goalAmount));
 
-        goalAnim();
-    }
-
-    private String prettyNumber(double goal) {
-        NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
-        return "$" + nf.format(goal);
-    }
-
-    private void goalAnim() {
-        int progress = binding.currentGoalBar.getProgress();
-        CardView backdrop = (CardView) getView().findViewById(R.id.cardView_mainBackdrop);
-        ImageView rocket_fly = (ImageView) getView().findViewById(R.id.rocket_home);
-        ImageView moon = (ImageView) getView().findViewById(R.id.moon_home);
-        ProgressBar progressBar = (ProgressBar) getView().findViewById(R.id.current_goal_bar);
-        ImageView rocket_rest = (ImageView) getView().findViewById(R.id.rocket_rest);
-        TextView congrats = (TextView) getView().findViewById(R.id.congrats_text);
-        CardView resetDialog = (CardView) getView().findViewById(R.id.warning_dialog);
-        TextView resetGoal = (TextView) getView().findViewById(R.id.reset_goal);
-        EditText resetNumber = (EditText) getView().findViewById(R.id.reset_number);
-        Button resetConfirm = (Button) getView().findViewById(R.id.reset_confirm);
-
-        if(progress == 100){
-            //Toast.makeText(getActivity(), "Reach Goal", Toast.LENGTH_SHORT).show();
-            //backdrop move down
-            Animation moveDown = AnimationUtils.loadAnimation(this.getContext(), R.anim.move_down_animation);
-            backdrop.startAnimation(moveDown);
-            //fade out
-            Animation fadeOut = AnimationUtils.loadAnimation(this.getContext(), R.anim.fade_out_animation);
-            progressBar.startAnimation(fadeOut);
-            rocket_fly.startAnimation(fadeOut);
-            //moon move center
-            Animation moveCenter = AnimationUtils.loadAnimation(this.getContext(), R.anim.move_center_animation);
-            moon.startAnimation(moveCenter);
-            //fade in
-            Animation fadeIn = AnimationUtils.loadAnimation(this.getContext(), R.anim.fade_in_animation);
-            //rocket_rest.setAlpha(1);
-            congrats.setAlpha(1);
-            resetDialog.setAlpha(1);
-            resetGoal.setAlpha(1);
-            resetNumber.setAlpha(1);
-            resetConfirm.setAlpha(1);
-            congrats.startAnimation(fadeIn);
-            rocket_rest.startAnimation(fadeIn);
-            resetDialog.startAnimation(fadeIn);
-            resetGoal.startAnimation(fadeIn);
-            resetNumber.startAnimation(fadeIn);
-            resetConfirm.startAnimation(fadeIn);
-        }
-        else{
-
+        if (progress >= 100 && !isAnimationInProgress) {
+            startGoalCompleteAnimation();
         }
     }
 
+    private void handleGoalReset() {
+        onDetach();
+        String newGoalStr = binding.resetNumber.getText().toString();
+        if (newGoalStr.isEmpty()) {
+            Toast.makeText(getContext(), R.string.invalid_goal_amount, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        try {
+            double newGoal = Double.parseDouble(newGoalStr);
+            if (newGoal <= 0) {
+                Toast.makeText(getContext(), R.string.invalid_goal_amount, Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadTransactions();
+            // Save new goal
+            SharedPreferences.Editor editor = requireContext()
+                    .getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                    .edit();
+            editor.putFloat(KEY_CURRENT_GOAL, (float) newGoal);
+            editor.apply();
+
+            currentGoal = newGoal;
+            Toast.makeText(getContext(), "New goal set successfully!", Toast.LENGTH_SHORT).show();
+
+            // Reset UI and navigate
+            resetUIAfterGoalSet();
+
+            // Force reload home fragment
+            NavController navController = Navigation.findNavController(requireView());
+            navController.popBackStack(R.id.homeFragment, true);
+            navController.navigate(R.id.homeFragment);
+
+        } catch (NumberFormatException e) {
+            Toast.makeText(getContext(), R.string.invalid_goal_amount, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void startGoalCompleteAnimation() {
+        isAnimationInProgress = true;
+
+        // Fade out current UI
+        Animation fadeOut = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out_animation);
+        binding.currentGoalBar.startAnimation(fadeOut);
+        binding.rocketHome.startAnimation(fadeOut);
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                binding.currentGoalBar.setVisibility(View.INVISIBLE);
+                binding.rocketHome.setVisibility(View.INVISIBLE);
+                showGoalCompleteUI();
+            }
+            @Override public void onAnimationStart(Animation animation) {}
+            @Override public void onAnimationRepeat(Animation animation) {}
+        });
+
+        // Move moon to center
+        Animation moveCenter = AnimationUtils.loadAnimation(requireContext(), R.anim.move_center_animation);
+        binding.moonHome.startAnimation(moveCenter);
+    }
+
+    private void showGoalCompleteUI() {
+        Animation fadeIn = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in_animation);
+
+        binding.congratsText.setAlpha(1f);
+        binding.warningDialog.setVisibility(View.VISIBLE);
+        binding.rocketRest.setVisibility(View.VISIBLE);
+
+        binding.congratsText.startAnimation(fadeIn);
+        binding.warningDialog.startAnimation(fadeIn);
+        binding.rocketRest.startAnimation(fadeIn);
+    }
+
+    private void resetUIAfterGoalSet() {
+        Animation fadeOut = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out_animation);
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                binding.warningDialog.setVisibility(View.GONE);
+                binding.congratsText.setVisibility(View.GONE);
+                binding.rocketRest.setVisibility(View.GONE);
+                binding.currentGoalBar.setVisibility(View.VISIBLE);
+                binding.rocketHome.setVisibility(View.VISIBLE);
+
+                isAnimationInProgress = false;
+                binding.currentGoalBar.setProgress(0);
+                loadTransactions();
+            }
+            @Override public void onAnimationStart(Animation animation) {}
+            @Override public void onAnimationRepeat(Animation animation) {}
+        });
+
+        binding.warningDialog.startAnimation(fadeOut);
+        binding.congratsText.startAnimation(fadeOut);
+        binding.rocketRest.startAnimation(fadeOut);
+    }
+
+    private void showTransactionOptions(Transaction transaction) {
+        Dialog dialog = new Dialog(requireContext());
+        DialogTransactionOptionsBinding dialogBinding = DialogTransactionOptionsBinding.inflate(getLayoutInflater());
+        dialog.setContentView(dialogBinding.getRoot());
+
+        dialogBinding.modifyButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("transaction", transaction);
+            Navigation.findNavController(requireView())
+                    .navigate(R.id.action_homeFragment_to_addTransactionFragment, bundle);
+        });
+
+        dialogBinding.deleteButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            deleteTransaction(transaction);
+        });
+
+        dialog.show();
+    }
+
+    private void deleteTransaction(Transaction transaction) {
+        new Thread(() -> {
+            MainActivity.db.transactionDao().delete(transaction);
+            requireActivity().runOnUiThread(this::loadTransactions);
+        }).start();
     }
 
     @Override

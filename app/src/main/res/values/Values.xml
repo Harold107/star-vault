@@ -5,46 +5,59 @@
     <color name="gradient_2_purple">#221734</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-
     <color name="bg_light">#663B8B</color>
     <color name="bg_dark">#221734</color>
-
-<!--    current goal-->
     <color name="txt_lightPink">#FA8D93</color>
     <color name="txt_darkPink">#FC489C</color>
-<!--    home page backdrop-->
     <color name="backDropMain_darkGrey">#F0F0F0</color>
-<!--    navigation bar-->
     <color name="navigationBar_grey">#D9D9D9</color>
     <color name="navigationIcon_pink">#C647BF</color>
-<!--    home page transaction-->
     <color name="positive_color">#22A600</color>
     <color name="negative_color">#A60000</color>
-
     <color name="logOut_red">#F45E5E</color>
-
     <color name="pink">#FF4081</color>
     <color name="light_grey">#DDDDDD</color>
     <color name="fake_boarder">#A9A9A9</color>
-
-
-    <!-- Theme colors -->
     <color name="colorPrimary">@color/gradient_1_purple</color>
     <color name="colorPrimaryDark">@color/gradient_2_purple</color>
     <color name="colorAccent">#FFA500</color>
+    <color name="achievement_bg">#663B8B</color>
+    <color name="game_background_start">#663B8B</color>
+    <color name="game_background_end">#221734</color>
+    <color name="popup_background">#80000000</color>
+    <color name="star_color">#FFD700</color>
+    <color name="xp_color">#4CAF50</color>
+    <color name="level_color">#FF9800</color>
 
     <!-- Dimensions -->
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="game_icon_size">32dp</dimen>
+    <dimen name="game_text_size">18sp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="standard_margin">16dp</dimen>
+
+    <!-- Navigation IDs -->
+    <item name="nav_home" type="id"/>
+    <item name="nav_game" type="id"/>
+    <item name="nav_settings" type="id"/>
+    <item name="homeFragment" type="id"/>
+    <item name="gameFragment" type="id"/>
+    <item name="settingFragment" type="id"/>
+    <item name="loginFragment" type="id"/>
+    <item name="registrationFragment" type="id"/>
+    <item name="addTransactionFragment" type="id"/>
+    <item name="transactionDetailFragment" type="id"/>
 
     <!-- Strings -->
+    <!-- App Strings -->
     <string name="app_name">GalactiCore</string>
     <string name="action_settings">Settings</string>
-    <string name="Home_fragment_label">Home Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="current_goal">Current Goal</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+    <string name="game">Game</string>
 
-    <!-- Add Transaction Strings -->
+    <!-- Transaction Strings -->
+    <string name="current_goal">Current Goal</string>
     <string name="new_transaction">New Transaction</string>
     <string name="income">Income</string>
     <string name="expense">Expense</string>
@@ -57,18 +70,28 @@
     <string name="fill_all_fields">Please fill in all required fields</string>
     <string name="invalid_amount">Invalid amount</string>
     <string name="transaction_saved">Transaction saved successfully</string>
-    <string name="add_transaction_fragment_label">Add Transaction</string>
-    <string name="add_transaction">add trans\n</string>
     <string name="edit_transaction">Edit Transaction</string>
-    <string name="category_content_description">Select or enter a transaction category</string>
-    <string name="home_fragment_label">home_fragment\n</string>
-    <string name="add_new_transaction">add_new_trans\n</string>
-    <string name="home">home\n</string>
+
+    <!-- Game Strings -->
+    <string name="level_prefix">Level %d</string>
+    <string name="xp_format">XP: %1$d/%2$d</string>
+    <string name="stars_earned">Stars Earned</string>
+    <string name="achievement_unlocked">Achievement Unlocked!</string>
+    <string name="savings_boost">Savings Boost</string>
+    <string name="boost_format">+%d%%</string>
+
+    <!-- Goal Related Strings -->
+    <string name="goal_complete">Goal Complete!</string>
+    <string name="goal_input_hint">Enter new goal amount</string>
+    <string name="invalid_goal_amount">Please enter a valid goal amount</string>
+    <string name="new_goal_hint">Enter new goal amount</string>
+
     <!-- Styles -->
     <style name="Theme.GalactiCore" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationStyle</item>
     </style>
 
     <style name="Theme.GalactiCore.NoActionBar">
@@ -76,14 +99,20 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.GalactiCore.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.GalactiCore.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <!-- Text Styles -->
-    <style name="TextAppearance.GalactiCore.Title" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/white</item>
+    <style name="WindowAnimationStyle">
+        <item name="android:activityOpenEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@android:anim/fade_out</item>
     </style>
 
+    <style name="GameText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/game_text_size</item>
+    </style>
+
+    <style name="GameText.Title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
